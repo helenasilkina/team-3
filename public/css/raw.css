@@ -489,7 +489,6 @@ html,body {
 
 .main,
 .main-wrap {
-    position: relative;
     width: 100%;
     height: 100%;
 }
@@ -549,12 +548,6 @@ html,body {
 
 .create-doc {
     display: inline-block;
-}
-
-.login-wrap {
-    position: absolute;
-    top: 50px;
-    right: 50px;
 }
 
 .btn--ghost {
