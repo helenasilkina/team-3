@@ -17,7 +17,7 @@ module.exports = {
         db[id] = document;
         callback(id);
     },
-    read: function (id, callback) {
+    get: function (id, callback) {
         callback(db[id]);
     },
     delete: function (id) {
