@@ -2,25 +2,25 @@ $(document).ready(function () {
     var mainWrap = $('.js-get-main-wrap');
     var popup = null;
     var popupCntnt = '';
-    var sockets = new SocketWrap("localhost", 3000);
+    var sockets = new SocketWrap('localhost', 3000);
     var link = document.createElement('a');
 
-    link.href = location.href; 
+    link.href = location.href;
 
-    if( /doc/.test(link) ) {
+    if (/doc/.test(link)) {
         var id = parseInt(link.href[link.href.length - 1], 10);
         console.log(link);
-        setTimeout(function() {
+        setTimeout(function () {
             sockets.get(id);
         }, 100);
 
-        sockets.on(id, function( data ) {
+        sockets.on(id, function (data) {
             console.log(data);
-            $('.editor').html( data )
+            $('.editor').html(data);
         })
     }
 
-    $(document).on('click', ".js-get-create-doc", function () {
+    $(document).on('click', '.js-get-create-doc', function () {
         popupCntnt = '<div class="popup-wrap pos-abs js-get-popup">' +
                             '<div class="popup-close js-get-close pos-abs"></div>' +
                             '<div class="popup--centered">' +
@@ -28,37 +28,47 @@ $(document).ready(function () {
                                     '<div class="popup__content__body">' +
                                         '<textarea name="doc" rows="10" class="js-get-doc-text popup__content__body__text"></textarea>' +
                                     '</div>' +
-                                    '<div class="popup__content__footer">'+
-                                        '<span class="popup__content__footer__info js-get-info">'+
-                                        '</span>'+
-                                        '<div class="popup__content__footer__btn-wrap">'+
-                                            '<button class="btn--ghost js-create-method">Save</button>'+
-                                        '</div>'+
-                                    '</div>'+
+                                    '<div class="popup__content__footer">' +
+                                        '<span class="popup__content__footer__info js-get-info">' +
+                                        '</span>' +
+                                        '<div class="popup__content__footer__btn-wrap">' +
+                                            '<button class="btn--ghost js-create-method">Save</button>' +
+                                        '</div>' +
+                                    '</div>' +
                                 '</div>' +
                             '</div>' +
                         '</div>';
 
         mainWrap.append(popupCntnt);
-        
-        sockets.on("success", function( data, id ) {
-             mainWrap.find(".js-get-info").html(data);
-             saveButton.remove();
-             window.location.href = '/doc/' + id;
-        })               
 
-        popup=mainWrap.find('.js-get-popup');
+        var saveButton = mainWrap.find('.js-create-method');
 
-        saveButton = mainWrap.find(".js-create-method");
-
-        saveButton.on("click", function() {
-            sockets.create($(".js-get-doc-text").val());
-        })
+        sockets.on('success', function (data, id) {
+            mainWrap.find('.js-get-info').html(data);
+            saveButton.remove();
+            window.location.href = '/doc/' + id;
+        });
 
         popup = mainWrap.find('.js-get-popup');
 
-        $(document).on('click', ".js-get-close", function () {
+        saveButton.on('click', function () {
+            sockets.create($('.js-get-doc-text').val());
+        });
+
+        popup = mainWrap.find('.js-get-popup');
+
+        $(document).on('click', '.js-get-close', function () {
             popup.remove();
         });
+    });
+
+    // save users
+    var saveLogin = mainWrap.find('.js-save-login-name');
+
+    saveLogin.on('click', function () {
+        var name = mainWrap.find('.js-get-login-name').val();
+        sockets.create(name);
+        mainWrap.find('.profile__name').text(name);
+        mainWrap.find('.profile__name').show();
     });
 });

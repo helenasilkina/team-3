@@ -27,7 +27,7 @@ gulp.task('hint', function() {
 });
 
 gulp.task('jscs', function () {
-  return gulp.src(path.pub.js)
+  gulp.src(path.pub.js)
       .pipe(jscs());
 });
 
@@ -39,18 +39,27 @@ gulp.task('minify', function(){
       .pipe(uglify())
 });
 
+gulp.task('static-copy', function(){
+  gulp.src('public/*.html')
+      .pipe(gulp.dest('dist/'))
+});
+
 gulp.task('styles', function() {
-  return gulp.src(path.pub.css)
+  gulp.src(path.pub.css)
       .pipe(csscomb())
       .pipe(autoprefixer('last 2 version'))
       .pipe(gulp.dest(path.dist.css))
       .pipe(rename({suffix: '.min'}))
       .pipe(minifycss())
-      .pipe(gulp.dest(path.dist.css))
+      .pipe(gulp.dest(path.dist.css));
 });
 
 gulp.task('default', function(){
-  gulp.start('jscs', 'hint', 'minify', 'styles');
+  gulp.start('jscs', 'hint', 'minify', 'styles', 'static-copy');
+
+  gulp.watch('public/*.html', function(){
+    gulp.start('static-copy');
+  });
 
   gulp.watch(path.pub.js, function(){
     gulp.start('jscs', 'hint', 'minify');

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/raw.css">
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="../css/core.css" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/raw.css" />
 </head>
 <body>
-    <div class="main cf">
+    <div class="main cf js-get-main-wrap">
         <div class="col fl-l w--25">
             <div class="logo">
                 <div class="logo__text">Ya.Code</div>
@@ -17,8 +19,11 @@
         </div>
         <div class="col fl-l w--25">
             <div class="profile--main cf">
-                <img class="profile__avatar" alt="" src="/images/avatar.png">
-                </img>
+                <input class="login js-get-login-name" type="text">
+                <button class="save-login js-save-login-name">Войти</button>
+            </div>
+            <div class="profile--main profile__name cf">
+                <img class="profile__avatar" alt="" src="/images/avatar.png"/>
                 <div class="profile__name">
                     NeXidan
                 </div>
