@@ -12,4 +12,8 @@ app.get('/doc/:id', function(req, res){
     res.sendFile(path.resolve('public/doc.html'));
 });
 
-app.listen(1337);
+module.exports = {
+    run: function(port) {
+        app.listen(port);
+    }
+}
