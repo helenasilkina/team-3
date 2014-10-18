@@ -491,6 +491,16 @@ html,body {
 .main-wrap {
     width: 100%;
     height: 100%;
+    padding: 18px;
+}
+
+.header {
+    width: 100%;
+    height: 200px;
+    border-bottom: solid 20px #fff;
+    background: url("http://www.code4you.info/img/develop_web.jpg") 100% top #fff;
+    background-position-y: 20%;
+    box-shadow: 0 0 50px rgba(0,0,0,0.9) inset;
 }
 
 .main-wrap,
@@ -508,7 +518,6 @@ html,body {
 .popup-wrap {
     background-color: rgb(29,77,126);
     background-color: rgba(29, 77, 126, 0.7);
-
     width: 100%;
     height: 100%;
 }
@@ -571,16 +580,14 @@ html,body {
 }
 
 .logo {
-    width: 60%;
-    margin-top: 20px;
-    margin-left: 20px;
+    width: 128px;
+    margin-left: 128px;
 }
 
 .logo__text {
-    color: #fff;
-    background-color: #fd0;
+    background-color: #fff;
     height: 80px;
-    line-height: 78px;
+    line-height: 80px;
     padding: 0 10px;
     font-size: 33px;
     font-weight: 300;
@@ -590,14 +597,15 @@ html,body {
 
 .logo__text:after {
     position: absolute;
-    content: '';
-    right: -30px;
+    top: 100%;
+    left: 0;
     width: 0;
     height: 0;
+    content: '';
+    -webkit-transform: rotate(360deg);
+    border-width: 40px 64px 0 64px;
     border-style: solid;
-    border-width: 40px 0 40px 30px;
-    border-color: transparent transparent transparent #fd0;
-    -webkit-transform:rotate(360deg);
+    border-color: #fff transparent transparent transparent;
 }
 
 .logo__text::first-letter {
