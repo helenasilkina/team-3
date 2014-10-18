@@ -552,7 +552,22 @@ html,body {
 
 .btn--ghost {
     background: transparent;
-    border: solid 2px green;
+    border: solid 2px rgba(29, 77, 126, 0.7);
+
+    height: 40px;
+    padding: 0 20px;
+
+    -webkit-transition: border-color .2s ease-out;
+    -moz-transition: border-color .2s ease-out;
+    -ms-transition: border-color .2s ease-out;
+    -o-transition: border-color .2s ease-out;
+    transition: border-color .2s ease-out;
+}
+
+.btn--ghost:hover {
+
+    border-color: rgb(29, 77, 126);
+
 }
 
 .logo {
