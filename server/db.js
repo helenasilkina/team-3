@@ -17,13 +17,11 @@ module.exports = {
         db[id] = document;
         callback(id);
     },
-    read: function (id) {
+    read: function (id, callback) {
         callback(db[id]);
-    },
-    update: function (id, document) {
-        db[id] = document;
     },
     delete: function (id) {
         delete db[id];
     }
 };
+
