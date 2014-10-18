@@ -489,6 +489,7 @@ html,body {
 
 .main,
 .main-wrap {
+    position: relative;
     width: 100%;
     height: 100%;
 }
@@ -550,6 +551,12 @@ html,body {
     display: inline-block;
 }
 
+.login-wrap {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+}
+
 .btn--ghost {
     background: transparent;
     border: solid 2px green;
@@ -604,6 +611,29 @@ html,body {
     border-bottom:5px solid #fd0;
     background-color: #fff;
     padding: 10px 20px;
+}
+
+.login {
+    margin-top: 20px;
+    border: 1px solid #fd0;
+    height: 32px;
+    padding: 0 12px;
+    line-height: 32px;
+    font-size: 13px;
+    color: #000;
+    background: none;
+}
+
+.save-login {
+    margin-left: 6px;
+    border: 2px solid red;
+    padding: 4px 10px;
+    color: red;
+    background: none;
+}
+
+.profile__name {
+    display: none;
 }
 
 .profile__avatar {

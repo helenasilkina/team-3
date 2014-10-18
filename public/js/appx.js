@@ -30,7 +30,7 @@ $(document).ready(function () {
             mainWrap.find(".js-get-info").html(event.data);
             saveButton.remove();
 
-        })               
+        })
 
         popup=mainWrap.find('.js-get-popup');
 
