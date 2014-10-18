@@ -19,7 +19,6 @@ gulp.task('minify', function(){
       .pipe(gulp.dest('dist/js'))
       .pipe(rename('all.min.js'))
       .pipe(uglify())
-      .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('styles', function() {
