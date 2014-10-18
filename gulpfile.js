@@ -3,14 +3,16 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
-    sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css');
+
+var es = require('event-stream');
 
 gulp.task('hint', function() {
   gulp.src('public/js/*.js')
       .pipe(jshint())
-      .pipe(jshint.reporter('default'));
+      .pipe(jshint.reporter('default'))
+      .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('minify', function(){
@@ -23,13 +25,12 @@ gulp.task('minify', function(){
 });
 
 gulp.task('styles', function() {
-  return gulp.src('public/sass/*.scss')
-      .pipe(sass({ style: 'expanded' }))
+  return gulp.src('public/css/*.css')
       .pipe(autoprefixer('last 2 version'))
       .pipe(gulp.dest('dist/css'))
       .pipe(rename({suffix: '.min'}))
       .pipe(minifycss())
-      .pipe(gulp.dest('dist/css'));
+      .pipe(gulp.dest('dist/css'))
 });
 
 gulp.task('default', function(){
@@ -39,7 +40,7 @@ gulp.task('default', function(){
     gulp.start('hint', 'minify');
   });
 
-  gulp.watch("public/sass/*.scss", function(){
+  gulp.watch("public/css/*.css", function(){
     gulp.start('styles');
   });
 });
