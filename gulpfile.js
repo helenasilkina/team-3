@@ -56,16 +56,16 @@ gulp.task('styles', function() {
 
 gulp.task('default', function(){
   gulp.start('jscs', 'hint', 'minify', 'styles', 'static-copy');
-//
-//  gulp.watch('public/*.html', function(){
-//    gulp.start('static-copy');
-//  });
-//
-//  gulp.watch(path.pub.js, function(){
-//    gulp.start('jscs', 'hint', 'minify');
-//  });
-//
-//  gulp.watch(path.pub.css, function(){
-//    gulp.start('styles');
-//  });
+
+  gulp.watch('public/*.html', function(){
+    gulp.start('static-copy');
+  });
+
+  gulp.watch(path.pub.js, function(){
+    gulp.start('jscs', 'hint', 'minify');
+  });
+
+  gulp.watch(path.pub.css, function(){
+    gulp.start('styles');
+  });
 });
