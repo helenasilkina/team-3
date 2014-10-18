@@ -1,8 +1,11 @@
-//
-var db = [];
+// global data base
+var db = {};
+
+// create default Id
+var defaultId = 0;
 
 function generateId() {
-
+    return ++defaultId;
 }
 
 module.exports = {
@@ -10,13 +13,17 @@ module.exports = {
         //generate id
         var id = generateId();
 
-        //
-        db.push({'id': id, 'document': document});
-        return id;
+        //add new document
+        db[id] = document;
+        callback(id);
     },
     read: function (id) {
-        return document;
+        callback(db[id]);
     },
-    update: function (id) {},
-    delete: function (id) {}
+    update: function (id, document) {
+        db[id] = document;
+    },
+    delete: function (id) {
+        delete db[id];
+    }
 };
