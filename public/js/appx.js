@@ -1,11 +1,26 @@
 $(document).ready(function () {
     var mainWrap = $('.js-get-main-wrap');
     var popup = null;
-    var popupCntnt = '',
-    sockets = new SocketWrap("localhost", 3000)
+    var popupCntnt = '';
+    var sockets = new SocketWrap("localhost", 3000);
+    var link = document.createElement('a');
+
+    link.href = location.href; 
+
+    if( /doc/.test(link) ) {
+        var id = parseInt(link.href[link.href.length - 1], 10);
+        console.log(link);
+        setTimeout(function() {
+            sockets.get(id);
+        }, 100);
+
+        sockets.on(id, function( data ) {
+            console.log(data);
+            $('.editor').html( data )
+        })
+    }
 
     $(document).on('click', ".js-get-create-doc", function () {
-        console.log("Helo");
         popupCntnt = '<div class="popup-wrap pos-abs js-get-popup">' +
                             '<div class="popup-close js-get-close pos-abs"></div>' +
                             '<div class="popup--centered">' +
@@ -26,10 +41,10 @@ $(document).ready(function () {
 
         mainWrap.append(popupCntnt);
         
-        sockets.on(function(event) {
-            mainWrap.find(".js-get-info").html(event.data);
-            saveButton.remove();
-
+        sockets.on("success", function( data, id ) {
+             mainWrap.find(".js-get-info").html(data);
+             saveButton.remove();
+             window.location.href = '/doc/' + id;
         })               
 
         popup=mainWrap.find('.js-get-popup');

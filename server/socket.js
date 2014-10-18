@@ -11,11 +11,27 @@ function run() {
 			var obj = JSON.parse(message),
 					data = null;
 
-			if( typeof obj == "object" ) {
-				if( obj.method === "create" ) {
+			if( typeof obj == 'object' ) {
+				if( obj.method === 'create' ) {
 					db.create(obj.content, function(id) {
-						data = id;
-						socket.send("Success!");
+						var obj = {
+							type: 'createOk',
+							data: 'Success',
+							eventName: 'success',
+							id:id
+						}
+						socket.send(JSON.stringify(obj));
+					})
+				}
+				if( obj.method === 'get') {
+					db.get(obj.id, function(data) {
+						var object = {
+							type: 'get',
+							data: data,
+							id: obj.id
+						}
+						console.log(obj);
+						socket.send(JSON.stringify(object));
 					})
 				}
 			}
