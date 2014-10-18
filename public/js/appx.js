@@ -2,7 +2,7 @@ $(document).ready(function () {
     var mainWrap = $('.js-get-main-wrap');
     var popup = null;
     var popupCntnt = '',
-    sockets = new SocketWrap("localhost", 3000)
+    sockets = new SocketWrap("localhost", 3000);
 
     $(document).on('click', ".js-get-create-doc", function () {
         console.log("Helo");
@@ -30,7 +30,7 @@ $(document).ready(function () {
             mainWrap.find(".js-get-info").html(event.data);
             saveButton.remove();
 
-        })               
+        });
 
         popup=mainWrap.find('.js-get-popup');
 
@@ -38,8 +38,8 @@ $(document).ready(function () {
 
         saveButton.on("click", function() {
             sockets.create($(".js-get-doc-text").val());
-        })
-
+        });
+        
         popup = mainWrap.find('.js-get-popup');
 
         $(document).on('click', ".js-get-close", function () {
