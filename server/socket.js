@@ -1,28 +1,35 @@
 var ws = require('ws'),
 		db = require('./db');
 
-var server = new ws.Server({port: 3000});
+function run() {
+	var server = new ws.Server({port: 3000});
 
-server.on('connection', function(socket) {
+	server.on('connection', function(socket) {
 
-	socket.on('message', function(message) {
+		socket.on('message', function(message) {
 
-		var obj = JSON.parse(message);
+			var obj = JSON.parse(message),
+					data = null;
 
-		console.log(obj);
-
-		if( typeof obj == "object" ) {
-			if( obj.method === "create" ) {
-				db.create(obj.content, function(id) {
-					socket.send(JSON.stringify({ id : id}));
-				})
+			if( typeof obj == "object" ) {
+				if( obj.method === "create" ) {
+					db.create(obj.content, function(id) {
+						data = id;
+						socket.send("Success!");
+					})
+				}
 			}
-		}
+			db.get(data, function(text) {
+				console.log(text);
+			})
+		})
 
-		
+		socket.on('close', function() {
+			console.log('Close connection');
+		})
 	})
+}
 
-	socket.on('close', function() {
-		console.log('Close connection');
-	})
-})
+module.exports = {
+	run: run
+}
