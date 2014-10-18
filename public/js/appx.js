@@ -17,7 +17,7 @@ $(document).ready(function () {
         sockets.on(id, function (data) {
             console.log(data);
             $('.editor').html(data);
-        })
+        });
     }
 
     $(document).on('click', '.js-get-create-doc', function () {

@@ -8,28 +8,29 @@ function SocketWrap(url, port) {
         var object = {
             content: data,
             method: 'create'
-        }
+        };
         socket.send(JSON.stringify(object));
-    }
+    };
 
     this.get = function (id) {
         var object = {
             id: id,
             method: 'get'
-        }
+        };
         flag = id;
         socket.send(JSON.stringify(object));
-    }
+    };
 
     this.on = function (eventName, callback) {
         var eventCallbacks = callbacks[eventName] = callbacks[eventName] || [];
         eventCallbacks.push(callback);
-    }
+    };
 
     socket.onmessage = function (event) {
         var obj = JSON.parse(event.data);
+        var arr;
         if (obj.type === 'get') {
-            var arr = callbacks[obj.id];
+            arr = callbacks[obj.id];
             console.log(event);
             for (var i = 0; i < arr.length; i++) {
                 arr[i](obj.data);
@@ -37,10 +38,10 @@ function SocketWrap(url, port) {
         }
 
         if (obj.type === 'createOk') {
-            var arr = callbacks[obj.eventName];
-            for (var i = 0; i < arr.length; i++) {
-                arr[i](obj.data, obj.id);
+            arr = callbacks[obj.eventName];
+            for (var k = 0; k < arr.length; k++) {
+                arr[k](obj.data, obj.id);
             }
         }
-    }
-};
+    };
+}
