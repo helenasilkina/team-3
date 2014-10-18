@@ -1,1 +1,1 @@
-var t = 'test variable';
+var s = 'test variable 2';
