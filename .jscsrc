@@ -3,15 +3,16 @@
     "fileExtensions": [ ".js", "jscs" ],
 
     "requireParenthesesAroundIIFE": true,
-    "maximumLineLength": 120,
+    "maximumLineLength": 150,
     "validateLineBreaks": "LF",
     "validateIndentation": 4,
 
     "disallowKeywords": ["with"],
     "disallowSpacesInsideObjectBrackets": null,
     "disallowImplicitTypeConversion": ["string"],
+    "disallowMultipleVarDecl": true,
 
-    "safeContextKeyword": "_this",
+  "safeContextKeyword": "_this",
 
     "excludeFiles": [
       "test/data/**",

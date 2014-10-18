@@ -5,7 +5,8 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
-    jscs = require('gulp-jscs');
+    jscs = require('gulp-jscs'),
+    csscomb = require('gulp-csscomb');
 
 var path = {
   pub: {
@@ -40,6 +41,7 @@ gulp.task('minify', function(){
 
 gulp.task('styles', function() {
   return gulp.src(path.pub.css)
+      .pipe(csscomb())
       .pipe(autoprefixer('last 2 version'))
       .pipe(gulp.dest(path.dist.css))
       .pipe(rename({suffix: '.min'}))
