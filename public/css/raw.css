@@ -587,8 +587,7 @@ html,body {
 .logo__text {
     background-color: #fff;
     height: 80px;
-    line-height: 80px;
-    padding: 0 10px;
+    padding:10px;
     font-size: 33px;
     font-weight: 300;
     position: relative;
@@ -610,6 +609,18 @@ html,body {
 
 .logo__text::first-letter {
     color: red;
+}
+
+.logo__text__a {
+    text-decoration: none;
+    color:#000;
+}
+
+.logo__text__span {
+    display: block;
+    font-size: 18px;
+    color: #f95f30 !important;
+    font-weight: bold;
 }
 
 .content {
