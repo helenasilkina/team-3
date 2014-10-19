@@ -487,6 +487,38 @@ html,body {
     height: 100%;
 }
 
+hr {
+    padding: 0;
+    margin: 10px 10px 21px 10px;
+    border: none;
+    border-top:thin solid #333;
+    color: #333;
+    text-align: center;
+}
+hr:before {
+    content:"";
+    display: inline-block;
+    position: relative;
+    top: -5px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 11px 11px 0 11px;
+    border-color: #333 transparent transparent transparent;
+}
+hr:after {
+    right:21px;
+    content:"";
+    display: inline-block;
+    position: relative;
+    top: -7px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 0 10px;
+    border-color: #fff transparent transparent transparent;
+}
+
 .main,
 .main-wrap {
     width: 100%;
@@ -508,7 +540,7 @@ html,body {
 @keyframes header-animation {
     from {background-position-y: 10%;}
     to {background-position-y: 90%;}
-} 
+}
 
 .main-wrap,
 .popup-wrap {
