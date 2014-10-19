@@ -18,9 +18,7 @@ function SocketWrap(url, port) {
             method: 'get'
         };
         flag = id;
-        socket.onopen = function () {
-            socket.send(JSON.stringify(object));
-        };
+        socket.send(JSON.stringify(object));
     };
 
     this.on = function (eventName, callback) {

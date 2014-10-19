@@ -499,9 +499,16 @@ html,body {
     height: 200px;
     border-bottom: solid 20px #fff;
     background: url("http://www.code4you.info/img/develop_web.jpg") 100% top #fff;
-    background-position-y: 20%;
+    background-position-y: 10%;
     box-shadow: 0 0 50px rgba(0,0,0,0.9) inset;
+    -webkit-animation: header-animation 20s linear infinite alternate;
+    animation: header-animation 20s linear infinite alternate;
 }
+
+@keyframes header-animation {
+    from {background-position-y: 10%;}
+    to {background-position-y: 90%;}
+} 
 
 .main-wrap,
 .popup-wrap {
