@@ -567,7 +567,7 @@ html,body {
 
 .main--centered,
 .popup--centered {
-    /* display: table-cell; */
+    display: table-cell;
     vertical-align: middle;
 }
 
