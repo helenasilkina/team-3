@@ -468,6 +468,10 @@ th {
     position: relative;
 }
 
+.pos-fix {
+    position: fixed;
+}
+
 .fl-l {
     float: left;
 }
@@ -572,13 +576,13 @@ html,body {
 }
 
 .popup-wrap {
-    background-color: rgb(29,77,126);
-    background-color: rgba(29, 77, 126, 0.7);
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.7);
     width: 100%;
     height: 100%;
 }
 
-.popup-wrap.pos-abs,
+.popup-wrap.pos-fix,
 .popup-close.pos-abs {
     top: 0;
     left: 0;

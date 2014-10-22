@@ -21,7 +21,7 @@ $(document).ready(function () {
     }
 
     $(document).on('click', '.js-get-create-doc', function () {
-        popupCntnt = '<div class="popup-wrap pos-abs js-get-popup">' +
+        popupCntnt = '<div class="popup-wrap pos-fix js-get-popup">' +
                             '<div class="popup-close js-get-close pos-abs"></div>' +
                             '<div class="popup--centered">' +
                                 '<div class="popup__content pos-rel">' +
