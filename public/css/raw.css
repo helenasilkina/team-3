@@ -456,6 +456,8 @@ th {
     webkit-box-sizing: border-box;
     moz-box-sizing: border-box;
     box-sizing: border-box;
+    font-family: "Arial", Helvetica, sans-serif;
+    color: #333;
 }
 
 .pos-abs {
@@ -471,12 +473,17 @@ th {
 }
 
 .col {
-    background-color: #fff;
     height: 100%;
+    float: left;
+    padding: 10px 15px;
 }
 
 .w--25 {
     width: 25%;
+}
+
+.w--33 {
+    width: 33%;
 }
 
 .w--50 {
@@ -495,23 +502,26 @@ html,body {
     color: #333;
     text-align: center;
 }
+
 .hr:before {
     content:"";
     display: inline-block;
     position: relative;
     top: -5px;
+    left: 11px;
     width: 0;
     height: 0;
     border-style: solid;
     border-width: 11px 11px 0 11px;
     border-color: #333 transparent transparent transparent;
 }
+
 .hr:after {
-    right:21px;
     content:"";
     display: inline-block;
     position: relative;
     top: -7px;
+    right:10px;
     width: 0;
     height: 0;
     border-style: solid;
@@ -519,17 +529,24 @@ html,body {
     border-color: #fff transparent transparent transparent;
 }
 
+.main {
+    background-color: #f6f5f2;
+}
+
 .main,
 .main-wrap {
     width: 100%;
     height: 100%;
-    padding: 18px;
+}
+
+.main-wrap{
+    padding: 20px;
 }
 
 .header {
     width: 100%;
     height: 200px;
-    border-bottom: solid 20px #fff;
+    border-bottom: solid 20px #f6f5f2;
     background: url("http://www.code4you.info/img/develop_web.jpg") 100% top #fff;
     background-position-y: 10%;
     box-shadow: 0 0 50px rgba(0,0,0,0.9) inset;
@@ -542,7 +559,7 @@ html,body {
     to {background-position-y: 90%;}
 }
 
-.main-wrap,
+.main,
 .popup-wrap {
     text-align: center;
     display: table;
@@ -662,13 +679,42 @@ html,body {
     font-weight: bold;
 }
 
+.steps-wrap {
+    height: 300px;
+    margin-bottom: 30px;
+}
+
+.step {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: #f6f5f2;
+    margin: 5px auto;
+    box-shadow: -1px -1px 0 rgba(0,0,0,.15), 0 1px 0 rgba(0,0,0,.1), 0 -1px 3px rgba(0,0,0,.25) inset;
+}
+
+.step__number {
+    font-size: 79px;
+    font-weight: bold;
+    line-height: 100px;
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.15), 0 -1px 0 rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,0.25);
+}
+
+.panel {
+    background-color: #fff;
+    height: 100%;
+    margin: 20px;
+    padding: 15px;
+    box-shadow: 1px 1px 0 rgba(0,0,0,.15) inset, 0 -1px 0 rgba(0,0,0,.1) inset, 0 1px 3px rgba(0,0,0,0.25);
+}
+
 .content {
     background-color: #272822;
     border-left: 5px double #999;
     border-right: 5px double #999;
     padding: 10px;
 }
-
 
 .profile--main {
     margin-top: 20px;
