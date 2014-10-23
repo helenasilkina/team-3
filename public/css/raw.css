@@ -600,7 +600,7 @@ html,body {
 }
 
 .popup__content__body {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 .popup__content__body__text {
@@ -615,28 +615,74 @@ html,body {
     display: inline-block;
 }
 
-.create-doc {
+.icon-plus:before{
+    content: "\2b";
+}
+
+.btn {
+    cursor: pointer;
     display: inline-block;
+    margin: 15px 30px;
+    position: relative;
+    background-color: #fff;
+    border: none;
+    box-shadow: 1px 1px 0 rgba(0,0,0,.15) inset, 0 -1px 0 rgba(0,0,0,.1) inset, 0 1px 3px rgba(0,0,0,.25);
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
 }
 
-.btn--ghost {
-    background: transparent;
-    border: solid 2px rgba(29, 77, 126, 0.7);
-
-    height: 40px;
-    padding: 0 20px;
-
-    -webkit-transition: border-color .2s ease-out;
-    -moz-transition: border-color .2s ease-out;
-    -ms-transition: border-color .2s ease-out;
-    -o-transition: border-color .2s ease-out;
-    transition: border-color .2s ease-out;
+.btn:active {
+    color: #f6f5f2;
+    top: 2px;
 }
 
-.btn--ghost:hover {
+.btn:hover {
+   background: #fcfcfc;
+}
 
-    border-color: rgb(29, 77, 126);
+.btn--sm {
+    height: 32px;
+    min-width: 100px;
+    font-size: 18px;
+    line-height: 0px;
+    padding: 20px 25px;
+}
 
+.btn--lg {
+    height: 64px;
+    min-width: 256px;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 0px;
+    padding: 25px 30px;
+}
+
+.btn--icon:before {
+    position: absolute;
+    font-size: 48px;
+    line-height: 64px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.btn--icon:active:before {
+    color: #f6f5f2;
+}
+
+.btn--icon:before {
+    left: 70%;
+    opacity: 0;
+    top: 0;
+}
+
+.btn--icon:hover:before {
+    left: 80%;
+    opacity: 1;
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 
 .logo {
@@ -647,11 +693,19 @@ html,body {
 .logo__text {
     background-color: #fff;
     height: 80px;
-    padding:10px;
+    padding: 10px;
     font-size: 33px;
     font-weight: 300;
     position: relative;
     text-align: center;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.logo__text:hover {
+    height: 90px;
+    padding: 15px 10px;
 }
 
 .logo__text:after {
@@ -703,6 +757,7 @@ html,body {
     line-height: 100px;
     color: #fff;
     text-shadow: 1px 1px 0 rgba(0,0,0,.15), 0 -1px 0 rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,0.25);
+    cursor: default;
 }
 
 .panel {

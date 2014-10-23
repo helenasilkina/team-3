@@ -32,7 +32,7 @@ $(document).ready(function () {
                                         '<span class="popup__content__footer__info js-get-info">' +
                                         '</span>' +
                                         '<div class="popup__content__footer__btn-wrap">' +
-                                            '<button class="btn--ghost js-create-method">Save</button>' +
+                                            '<button class="btn btn--sm js-create-method">Save</button>' +
                                         '</div>' +
                                     '</div>' +
                                 '</div>' +
