@@ -1,27 +1,37 @@
-// global data base
-var db = {};
-
-// create default Id
-var defaultId = 0;
+var fs = require('fs');
 
 function generateId() {
-    return ++defaultId;
+    return ++fs.readdirSync('doc').length;
 }
 
 module.exports = {
     create: function (document, callback) {
-        //generate id
-        var id = generateId();
-
-        //add new document
-        db[id] = document;
+       var id = generateId();
+       fs.writeFile('doc/'+ id + '.txt', document, function (err) {
+            if (err) {
+                console.log('Document isn\'t created!');
+            } else {
+                console.log('Document is created!');
+            }
+        });
         callback(id);
     },
     get: function (id, callback) {
-        callback(db[id]);
+        fs.readFile('doc/'+ id + '.txt', function (err, data) {
+            if (err) {
+                console.log('Document isn\'t read!');
+            } else {
+                callback(data);
+                console.log('Document is read! ' + data);
+            }
+        });
     },
     delete: function (id) {
-        delete db[id];
+        // todo: need to test
+        var fileName = '/doc/'+ id + '.txt';
+        var tempFile = fs.openSync(fileName, 'r');
+        fs.closeSync(tempFile);
+        fs.unlinkSync(fileName);
     }
 };
 

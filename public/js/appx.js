@@ -12,7 +12,7 @@ $(document).ready(function () {
         console.log(link);
         setTimeout(function () {
             sockets.get(id);
-        }, 100);
+        }, 1000);
 
         sockets.on(id, function (data) {
             console.log(data);
