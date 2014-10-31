@@ -10,38 +10,41 @@ var gulp = require('gulp'),
 
 var path = {
   pub: {
-    js: 'public/js/*.js',
+    js: 'public/js/',
     css: 'public/css/*.css'
   },
   dist: {
-    js: 'dist/js',
-    css: 'dist/css'
+    js: 'dist/js/',
+    css: 'dist/css/'
   }
 };
 
 gulp.task('hint', function() {
-  gulp.src(path.pub.js)
+  gulp.src(path.pub.js + 'app/*.js')
       .pipe(jshint())
       .pipe(jshint.reporter('default'))
-      .pipe(gulp.dest(path.dist.js));
+      //.pipe(gulp.dest(path.dist.js));
 });
 
 gulp.task('jscs', function () {
-  gulp.src(path.pub.js)
+  gulp.src(path.pub.js + 'app/*')
       .pipe(jscs());
 });
 
 gulp.task('minify', function(){
-  gulp.src(path.pub.js)
-      .pipe(concat('all.js'))
+  gulp.src(path.pub.js + 'app/*.js')
+      .pipe(concat('app.js'))
       .pipe(gulp.dest(path.dist.js))
-      .pipe(rename('all.min.js'))
+      .pipe(rename('app.min.js'))
       .pipe(uglify())
 });
 
 gulp.task('static-copy', function(){
   gulp.src('public/*.html')
-      .pipe(gulp.dest('dist/'))
+      .pipe(gulp.dest('dist/'));
+  gulp.src([path.pub.js + 'libs/underscore-min.js', path.pub.js + 'libs/jquery-2.1.1.min.js', path.pub.js + 'libs/backbone-min.js'])
+      .pipe(concat('libs.js'))
+      .pipe(gulp.dest(path.dist.js));
 });
 
 gulp.task('styles', function() {
@@ -61,7 +64,7 @@ gulp.task('default', function(){
     gulp.start('static-copy');
   });
 
-  gulp.watch(path.pub.js, function(){
+  gulp.watch(path.pub.js + 'app/*.js', function(){
     gulp.start('jscs', 'hint', 'minify');
   });
 

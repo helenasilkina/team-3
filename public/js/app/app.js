@@ -1,4 +1,5 @@
 var app = app || {};
+
 var EditorModel = Backbone.Model.extend ({
     defaults: function () {
         return {
@@ -11,12 +12,12 @@ var EditorModel = Backbone.Model.extend ({
             console.log('init');
         }
     });
-var EditorModel = Backbone.Model.extend ({
+var UserModel = Backbone.Model.extend ({
     defaults: function () {
         return {
+            id: null,
             name: 'Default name',
-            isOnline: false,
-            isReadOnly: false
+            isOnline: false
         };
     },
     initialize: function () {
@@ -74,3 +75,18 @@ var EditorView = Backbone.View.extend ({
         return this;
     }
 });
+
+var testUsers =  [
+    {id: '0', name: 'User 0', isOnline: false},
+    {id: '1', name: 'User 1', isOnline: false},
+    {id: '2', name: 'User 2', isOnline: true},
+    {id: '3', name: 'User 3', isOnline: false},
+    {id: '4', name: 'User 4', isOnline: false},
+    {id: '5', name: 'User 5', isOnline: true},
+    {id: '6', name: 'User 6', isOnline: false}
+];
+
+var usersCollection = new UsersCollection();
+usersCollection.add(testUsers);
+
+console.log(usersCollection);
