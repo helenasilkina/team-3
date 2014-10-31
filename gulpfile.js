@@ -57,9 +57,7 @@ gulp.task('styles', function() {
       .pipe(gulp.dest(path.dist.css));
 });
 
-gulp.task('default', function(){
-  gulp.start('jscs', 'hint', 'minify', 'styles', 'static-copy');
-
+gulp.task('watch', function(){
   gulp.watch('public/*.html', function(){
     gulp.start('static-copy');
   });
@@ -71,4 +69,9 @@ gulp.task('default', function(){
   gulp.watch(path.pub.css, function(){
     gulp.start('styles');
   });
+});
+
+gulp.task('default', function(){
+  gulp.start('jscs', 'hint', 'minify', 'styles', 'static-copy');
+
 });
