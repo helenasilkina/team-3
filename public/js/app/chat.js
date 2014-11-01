@@ -2,8 +2,8 @@
 
 $(document).ready(function () {
     var chat = $('.js-get-chat');
-    var chatBody = chat.find('.chat__body');
-    var arrow = chat.find('.chat__header__arrow');
+    var chatBody = chat.find('.js-get-chat-body');
+    var arrow = chat.find('.js-get-chat-header-arrow');
     var originalHeight = chatBody.height();
     var isOpen = true;
 
