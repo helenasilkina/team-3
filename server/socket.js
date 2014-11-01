@@ -1,7 +1,7 @@
 var ws = require('ws');
-var dbase = require('./db');
+var database = require('./db');
 var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017/myproject';
+var url = 'mongodb://localhost:27017/db';
 
 
 function run() {
@@ -19,7 +19,7 @@ function run() {
 			if( typeof obj == 'object' ) {
 				if( obj.method === 'create' ) {
 					console.log("create");
-					dbase.create(obj.content, db, function(data) {
+					database.create(obj.content, db, function(data) {
 						var obj = {
 							type: 'createOk',
 							data: 'Success',
@@ -32,7 +32,7 @@ function run() {
 				}
 				if( obj.method === 'get') {
 					console.log('get', obj);
-					dbase.get(obj.id, db, function(data) {
+					database.get(obj.id, db, function(data) {
 						var object = {
 							type: 'get',
 							data: data && data.content,
@@ -43,9 +43,6 @@ function run() {
 					})
 				}
 			}
-			// dbase.get(data, db, function(text) {
-			// 	console.log(text);
-			// })
 		})
 
 		socket.on('close', function() {
