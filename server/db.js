@@ -1,36 +1,28 @@
-var fs = require('fs');
+var ident = 1;
+var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
 
 function generateId() {
-    return ++fs.readdirSync('doc').length;
+    return ident++;
 }
 
 module.exports = {
-    create: function (document, callback) {
-       var id = generateId();
-       fs.writeFile('doc/'+ id + '.txt', document, function (err) {
-            if (err) {
-                console.log('Document isn\'t created!');
-            } else {
-                console.log('Document is created!');
-            }
-        });
-        callback(id);
-    },
-    get: function (id, callback) {
-        fs.readFile('doc/'+ id + '.txt', function (err, data) {
-            if (err) {
-                console.log('Document isn\'t read!');
-            } else {
-                callback(data);
-                console.log('Document is read! ' + data);
-            }
-        });
-    },
-    delete: function (id) {
-        var fileName = '/doc/'+ id + '.txt';
-        var tempFile = fs.openSync(fileName, 'r');
-        fs.closeSync(tempFile);
-        fs.unlinkSync(fileName);
-    }
-};
 
+    create: function(cnt, db, callback) {
+      var collection = db.collection('documents');
+      collection.insert(
+        {content : cnt}, function(err, result) {
+        console.log('create', result);
+        callback(result[0]);
+      });
+    },
+
+    get : function(id, db, callback) {
+      var collection = db.collection('documents');
+        collection.findOne({ _id : ObjectId(id) }, function(err, result) {
+        console.log('result ',result);
+        callback(result);
+      });
+    }
+
+};
