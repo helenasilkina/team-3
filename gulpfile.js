@@ -26,16 +26,30 @@ var appFiles = [
     path.pub.js + 'app/*.js'
 ];
 
+var libs = [
+    path.pub.js + 'libs/underscore-min.js',
+    path.pub.js + 'libs/jquery-2.1.1.min.js',
+    path.pub.js + 'libs/socket-wrap.js',
+    path.pub.js + 'libs/backbone-min.js',
+    path.pub.js + 'libs/ace.js'
+];
+
 gulp.task('hint', function() {
   gulp.src(appFiles)
       .pipe(jshint())
-      .pipe(jshint.reporter('default'))
+      .pipe(jshint.reporter('default'));
       //.pipe(gulp.dest(path.dist.js));
+    gulp.src(path.pub.js + 'entrypage.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
+    //.pipe(gulp.dest(path.dist.js));
 });
 
 gulp.task('jscs', function () {
-  gulp.src(appFiles)
-      .pipe(jscs());
+    gulp.src(appFiles)
+        .pipe(jscs());
+    gulp.src(path.pub.js + 'entrypage.js')
+        .pipe(jscs());
 });
 
 gulp.task('minify', function(){
@@ -45,16 +59,14 @@ gulp.task('minify', function(){
       .pipe(rename('app.min.js'))
       .pipe(uglify())
       .pipe(gulp.dest(path.dist.js));
+    gulp.src(path.pub.js + 'entrypage.js')
+        .pipe(gulp.dest(path.dist.js))
 });
 
 gulp.task('static-copy', function(){
   gulp.src('public/*.html')
       .pipe(gulp.dest('dist/'));
-  gulp.src([
-          path.pub.js + 'libs/underscore-min.js',
-          path.pub.js + 'libs/jquery-2.1.1.min.js',
-          path.pub.js + 'libs/backbone-min.js',
-          path.pub.js + 'libs/ace.js'])
+  gulp.src(libs)
       .pipe(concat('libs.js'))
       .pipe(gulp.dest(path.dist.js));
 });
