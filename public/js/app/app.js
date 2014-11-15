@@ -54,7 +54,7 @@ app.MainAppView = Backbone.View.extend({
 
             text.on('init', listenText);
 
-            text.on(function(spec, val, source) {
+            text.on(function (spec, val, source) {
 
                 console.log('****************START EVENT********************');
                 console.log('event: ', spec.op(), val);
@@ -62,7 +62,7 @@ app.MainAppView = Backbone.View.extend({
                 console.log(text);
                 console.log(swarmHost);
                 listenText();
-            })
+            });
         }
     }
 });
