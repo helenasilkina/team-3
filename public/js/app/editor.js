@@ -17,6 +17,10 @@ var Editor = function (_options) {
 
 };
 
+Editor.prototype.setCursor = function (row, col) {
+    this.ace.moveCursorTo(row, col);
+};
+
 Editor.prototype.setOtherCursor = function (range, id) {
     this.marker = this.ace.session.addMarker(range, 'ace_active-line', 'text');
 };

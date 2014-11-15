@@ -21,7 +21,9 @@ app.EditorView = Backbone.View.extend ({
     },
 
     updateText: function () {
+        var currCursorPosition = this.editor.getCursor();
         this.editor.dataSet(this.textModel.get('text'));
+        this.editor.setCursor(currCursorPosition.row, currCursorPosition.column);
     },
 
     updateCursors: function () {
