@@ -12,15 +12,21 @@ app.MainAppView = Backbone.View.extend({
           textModel: app.textModel
         });
 
+        var isUpdateWaiting = true;
         var aceEditor = app.editorController.editor.ace;
 
         // text set
-        app.textModel.set('text', 'text for textarea');
+//        isUpdateWaiting = false;
+//        app.textModel.set('text', 'text for textarea');
+//        isUpdateWaiting = true;
+
 
         // text get
-        aceEditor.on('change', function () {
-            console.log(aceEditor.getValue());
-        });
+//        aceEditor.on('change', function () {
+//            if (isUpdateWaiting) {
+//                console.log(aceEditor.getValue());
+//            }
+//        });
 
         // cursor set
         // app.cursorsCollection.reset(test);
