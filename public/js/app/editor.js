@@ -57,7 +57,6 @@ Editor.prototype.updateOtherCursors = function (data) {
     for (var n = 0; n < data.length; n++) {
         var range = new Range(data[n].row, data[n].col,
             data[n].row, data[n].col + 1);
-        console.log(range);
         this.otherCursors.push(this.editor.session.addMarker(range, 'ace_active-line fake-cursor user-' + data[n].id, 'text'));
     }
 };

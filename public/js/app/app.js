@@ -1,129 +1,11 @@
 var app = app || {};
 
-// MODELS
-var CursorModel = Backbone.Model.extend ({
-    defaults: function () {
-        return {
-            id: null,
-            row: null,
-            col: null
-        };
-    },
-
-    initialize: function () {
-        console.log('init');
-    }
-});
-
-var TextModel = Backbone.Model.extend ({
-    defaults: function () {
-        return {
-          text: 'test model string'
-        };
-    },
-
-    initialize: function () {
-        console.log('init');
-    }
-});
-
-var UserModel = Backbone.Model.extend ({
-    defaults: function () {
-        return {
-            id: null,
-            name: 'Default name',
-            isOnline: false
-        };
-    },
-    initialize: function () {
-
-    }
-});
-
-var UsersCollection = Backbone.Collection.extend ({
-    model: UserModel,
-    initialize: function () {
-    }
-});
-
-var CursorsCollection = Backbone.Collection.extend ({
-    model: CursorModel,
-    initialize: function () {
-    }
-});
-
-// VIEWS
-var UsersView = Backbone.View.extend ({
-    options: {
-      collection: null
-    },
-
-    events: {
-      'click input': 'chk'
-    },
-
-    initialize: function (_options) {
-        // this.options = _.extend ({}, _options, options);
-        this.render();
-    },
-
-    render: function () {
-        var template = _.template($('#user-template').html(), {items: this.collection.models});
-        // this.$el.html(template);
-        return this;
-    }
-});
-
-var EditorView = Backbone.View.extend ({
-    options: {
-        prop: 'test original'
-    },
-    events: {
-        'click input': 'chk'
-    },
-    initialize: function (_options) {
-        this.options = _.extend ({}, this.options, _options);
-        this.usersCollection = this.options.usersCollection;
-        this.cursorsCollection = this.options.cursorsCollection;
-        this.textModel = this.options.textModel;
-
-        // event listeners
-        this.cursorsCollection.on('reset', this.updateCursors, this);
-        this.textModel.on('change', this.updateText, this);
-
-        this.render();
-    },
-
-    updateText: function () {
-        this.editor.dataSet(this.textModel.get('text'));
-    },
-
-    updateCursors: function () {
-        var data = JSON.parse(JSON.stringify(this.cursorsCollection.models));
-        this.editor.updateOtherCursors(data);
-    },
-
-    onlineToggle: function (isOnline) { // 0
-
-    },
-
-    render: function () {
-        var template = _.template($('#editor-template').html());
-        this.$el.html(template);
-
-        this.editor = new Editor({
-            editorId: 'editor'
-        });
-        return this;
-    }
-});
-
-var MainAppView = Backbone.View.extend({
+app.MainAppView = Backbone.View.extend({
     initialize: function (options) {
-        app.usersCollection = new UsersCollection();
-        app.cursorsCollection = new CursorsCollection();
-        app.textModel = new TextModel();
-        app.editor = new EditorView({
+            app.usersCollection = new app.UsersCollection();
+        app.cursorsCollection = new app.CursorsCollection();
+        app.textModel = new app.TextModel();
+        app.editor = new app.EditorView({
           el: '#editor-field',
           usersCollection: app.usersCollection,
           cursorsCollection: app.cursorsCollection,
@@ -143,7 +25,7 @@ var testUsers =  [
 ];
 
 $(document).ready(function () {
-    var App = new MainAppView();
+    var App = new app.MainAppView();
     // setTimeout(testCursors, 5000);
 });
 
@@ -151,9 +33,9 @@ $(document).ready(function () {
 
 function testCursors() {
     var test = [
-        {id: 0, col: 2, row: 0},
-        {id: 1, col: 4, row: 1},
-        {id: 2, col: 1, row: 2}
+        {id: 0, col: 2, row: 0, color: '#ff5500'},
+        {id: 1, col: 4, row: 1, color: '#ff0036'},
+        {id: 2, col: 1, row: 2, color: '#002aff'}
     ];
 
     app.cursorsCollection.reset(test);

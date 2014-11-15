@@ -19,20 +19,27 @@ var path = {
   }
 };
 
+var appFiles = [
+    path.pub.js + 'app/models/*.js',
+    path.pub.js + 'app/collections/*.js',
+    path.pub.js + 'app/views/*.js',
+    path.pub.js + 'app/*.js'
+];
+
 gulp.task('hint', function() {
-  gulp.src(path.pub.js + 'app/*.js')
+  gulp.src(appFiles)
       .pipe(jshint())
       .pipe(jshint.reporter('default'))
       //.pipe(gulp.dest(path.dist.js));
 });
 
 gulp.task('jscs', function () {
-  gulp.src(path.pub.js + 'app/*')
+  gulp.src(appFiles)
       .pipe(jscs());
 });
 
 gulp.task('minify', function(){
-  gulp.src(path.pub.js + 'app/*.js')
+  gulp.src(appFiles)
       .pipe(concat('app.js'))
       .pipe(gulp.dest(path.dist.js))
       .pipe(rename('app.min.js'))
