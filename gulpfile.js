@@ -44,6 +44,7 @@ gulp.task('minify', function(){
       .pipe(gulp.dest(path.dist.js))
       .pipe(rename('app.min.js'))
       .pipe(uglify())
+      .pipe(gulp.dest(path.dist.js));
 });
 
 gulp.task('static-copy', function(){
@@ -84,5 +85,4 @@ gulp.task('watch', function(){
 
 gulp.task('default', function(){
   gulp.start('jscs', 'hint', 'minify', 'styles', 'static-copy');
-
 });
