@@ -19,5 +19,6 @@ app.get('/doc/:id', function(req, res){
 module.exports = {
     run: function(port) {
         app.listen(port);
+        console.log('Server started at ' + port);
     }
 }
