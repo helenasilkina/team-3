@@ -45,6 +45,7 @@ gulp.task('minify', function(){
       .pipe(gulp.dest(path.dist.js))
       .pipe(rename('app.min.js'))
       .pipe(uglify())
+      .pipe(gulp.dest(path.dist.js))
 });
 
 gulp.task('static-copy', function(){
