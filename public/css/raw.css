@@ -456,8 +456,6 @@ th {
     webkit-box-sizing: border-box;
     moz-box-sizing: border-box;
     box-sizing: border-box;
-    font-family: "Arial", Helvetica, sans-serif;
-    color: #333;
 }
 
 .pos-abs {
@@ -789,7 +787,7 @@ html,body {
 }
 
 .project {
-    height: 64px; 
+    height: 64px;
     font-size: 33px;
     font-weight: 300;
     line-height: 64px;
@@ -956,7 +954,7 @@ html,body {
 }
 
 .chat {
-    position: absolute;    
+    position: absolute;
     width: 512px;
     bottom: 2px;
     right: 32px;
@@ -1027,8 +1025,9 @@ html,body {
 }
 
 .ace_content {
-    font-size: 13px;
-    line-height: 19px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+    font-size: 12px;
+    line-height: normal;
 }
 
 #editor {
