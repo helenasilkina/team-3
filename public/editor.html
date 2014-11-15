@@ -2,48 +2,53 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
-    <script src="js/libs.js"></script>
-    <script src="js/app.js"></script>
-    <style type="text/css" media="screen">
-        body {
-            overflow: hidden;
-            background-color: #3d3d3d;
-        }
-        #editor {
-            margin: 0;
-            width: 800px;
-            height: 500px;
-        }
-
-        .fake-cursor {
-            background-color: transparent !important;
-        }
-
-        .user-0 {
-            border-left: 2px solid red;
-            background: none;
-        }
-
-        .user-1 {
-            border-left: 2px solid blue;
-            background: none;
-        }
-
-        .user-2 {
-            border-left: 2px solid orange;
-        }
-
-    </style>
-
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="shortcut icon"href="//yastatic.net/lego/_/pDu9OWAQKB0s2J9IojKpiS_Eho.ico"/>
+    <link rel="stylesheet" href="css/core.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/raw.css" />
 </head>
 <body>
-  <div id="editor-field"></div>
+    <div class="main-wrap cf js-get-main-wrap">
+        <div class="panel panel--top">
+            <div class="project">
+                <div class="project__logo">
+                    <a class="logo__text__a" href="/">
+                        Яндекс.Код
+                    </a>
+                </div>
+                <span class="project__name">
+                    /&nbsp;Project
+                </span>
+            </div>
+            <div class="profile">
+                <span class="profile__name">
+                    NeXidan
+                </span>
+                <div class="profile__avatar">
+                </div>
+            </div>
+        </div>
+        <div class="main main--padding">
+            <div class="col col--left w--20">
+                <div class="folders">
+                </div>
+            </div>
+            <div class="col w--65">
+                <div class="content" id="editor-field"></div>
+            </div>
+        </div>
+        <div class="panel panel--bot">
+        </div>
+    </div>
 
+  <script src="js/libs.js"></script>
+  <script src="js/app.js"></script>
   <script type="text/template" id="editor-template">
     <div id="editor"></div>
-    <button onclick="testCursors();">test cursors</button>
-    <button onclick="testText();">test text</button>
+    <button class="button button-cursor" onclick="testCursors();">test cursors</button>
+    <button class="button button-text" onclick="testText();">test text</button>
   </script>
 
 </body>
