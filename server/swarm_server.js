@@ -7,7 +7,6 @@ var ws_lib = require('ws');
 var Swarm = require('swarm');
 
 var Text = require('swarm/lib/Text');
-var Cursor = require('./Cursor');
 
 // use file storage
 var fileStorage = new Swarm.FileStorage('storage2');

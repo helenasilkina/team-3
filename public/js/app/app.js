@@ -37,13 +37,22 @@ app.MainAppView = Backbone.View.extend({
 
         swarm();
 
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF'.split('');
+            var color = '#';
+            for (var i = 0; i < 6; i++ ) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
         function swarm() {
             var login = prompt('Введите логин');
             var Swarm = require('swarm');
             var Text = require('swarm/lib/Text');
             var swarmHost = new Swarm.Host(login);
             var isUpdateWaiting = true;
-
+            
             window.text = new Text('TextArea2');
 
             function listenText() {
