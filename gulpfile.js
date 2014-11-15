@@ -59,13 +59,9 @@ gulp.task('minify', function(){
       .pipe(gulp.dest(path.dist.js))
       .pipe(rename('app.min.js'))
       .pipe(uglify())
-<<<<<<< HEAD
-      .pipe(gulp.dest(path.dist.js))
-=======
       .pipe(gulp.dest(path.dist.js));
     gulp.src(path.pub.js + 'entrypage.js')
         .pipe(gulp.dest(path.dist.js))
->>>>>>> 1304d4128c93fb14d3f2e85271b10593aef9922f
 });
 
 gulp.task('static-copy', function(){
@@ -101,5 +97,5 @@ gulp.task('watch', function(){
 });
 
 gulp.task('default', function(){
-  gulp.start('jscs', 'hint', 'minify', 'styles', 'static-copy');
+  gulp.start('minify', 'styles', 'static-copy');
 });

@@ -32,6 +32,38 @@ app.MainAppView = Backbone.View.extend({
             console.log(app.editorController.editor.getCursor());
         });
 
+        swarm();
+
+        function swarm() {
+            var login = prompt('Введите логин');
+            var Swarm = require('swarm');
+            var Text = require('swarm/lib/Text');
+            var swarmHost = new Swarm.Host(login);
+
+            window.text = new Text('TextArea2');
+
+            function listenText() {
+                app.textModel.set('text', text.text);
+            }
+
+            swarmHost.connect('ws://' + window.location.host.split(':')[0] + ':9999');
+
+            aceEditor.on('change', function () {
+                text.set(aceEditor.getValue());
+            });
+
+            text.on('init', listenText);
+
+            text.on(function(spec, val, source) {
+
+                console.log('****************START EVENT********************');
+                console.log('event: ', spec.op(), val);
+                console.log('****************TEXTAREA********************');
+                console.log(text);
+                console.log(swarmHost);
+                listenText();
+            })
+        }
     }
 });
 
@@ -53,41 +85,8 @@ var test = [
 
 $(document).ready(function () {
     var App = new app.MainAppView();
-    swarm();
     // setTimeout(testCursors, 5000);
 });
-
-function swarm() {
-    var login = prompt('Введите логин');
-    var Swarm = require('swarm');
-    var Text = require('swarm/lib/Text');
-    var swarmHost = new Swarm.Host(login);
-
-    window.text = new Text('TextArea2');
-
-    function listenText() {
-        app.textModel.set('text', text.text);
-    }
-
-    swarmHost.connect('ws://localhost:9999');
-
-    // //Set
-    // textArea.oninput = function() {
-    //     text.set(this.value);
-    // }
-
-    text.on('init', listenText);
-
-    text.on(function(spec, val, source) {
-
-        console.log('****************START EVENT********************');
-        console.log('event: ', spec.op(), val);
-        console.log('****************TEXTAREA********************');
-        console.log(text);
-        console.log(swarmHost);
-        listenText();
-    })
-}
 
 // TESTING DATA!!!!!!!!!!!!!!!
 
