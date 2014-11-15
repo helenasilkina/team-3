@@ -27,16 +27,30 @@ var appFiles = [
     path.pub.js + 'app/*.js'
 ];
 
+var libs = [
+    path.pub.js + 'libs/underscore-min.js',
+    path.pub.js + 'libs/jquery-2.1.1.min.js',
+    path.pub.js + 'libs/socket-wrap.js',
+    path.pub.js + 'libs/backbone-min.js',
+    path.pub.js + 'libs/ace.js'
+];
+
 gulp.task('hint', function() {
   gulp.src(appFiles)
       .pipe(jshint())
-      .pipe(jshint.reporter('default'))
+      .pipe(jshint.reporter('default'));
       //.pipe(gulp.dest(path.dist.js));
+    gulp.src(path.pub.js + 'entrypage.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
+    //.pipe(gulp.dest(path.dist.js));
 });
 
 gulp.task('jscs', function () {
-  gulp.src(appFiles)
-      .pipe(jscs());
+    gulp.src(appFiles)
+        .pipe(jscs());
+    gulp.src(path.pub.js + 'entrypage.js')
+        .pipe(jscs());
 });
 
 gulp.task('minify', function(){
@@ -45,17 +59,19 @@ gulp.task('minify', function(){
       .pipe(gulp.dest(path.dist.js))
       .pipe(rename('app.min.js'))
       .pipe(uglify())
+<<<<<<< HEAD
       .pipe(gulp.dest(path.dist.js))
+=======
+      .pipe(gulp.dest(path.dist.js));
+    gulp.src(path.pub.js + 'entrypage.js')
+        .pipe(gulp.dest(path.dist.js))
+>>>>>>> 1304d4128c93fb14d3f2e85271b10593aef9922f
 });
 
 gulp.task('static-copy', function(){
   gulp.src('public/*.html')
       .pipe(gulp.dest('dist/'));
-  gulp.src([
-          path.pub.js + 'libs/underscore-min.js',
-          path.pub.js + 'libs/jquery-2.1.1.min.js',
-          path.pub.js + 'libs/backbone-min.js',
-          path.pub.js + 'libs/ace.js'])
+  gulp.src(libs)
       .pipe(concat('libs.js'))
       .pipe(gulp.dest(path.dist.js));
 });
@@ -85,6 +101,5 @@ gulp.task('watch', function(){
 });
 
 gulp.task('default', function(){
-  gulp.start('minify', 'styles', 'static-copy');
-
+  gulp.start('jscs', 'hint', 'minify', 'styles', 'static-copy');
 });
