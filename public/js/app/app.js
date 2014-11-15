@@ -20,7 +20,6 @@ app.MainAppView = Backbone.View.extend({
 //        app.textModel.set('text', 'text for textarea');
 //        isUpdateWaiting = true;
 
-
         // text get
 //        aceEditor.on('change', function () {
 //            if (isUpdateWaiting) {
