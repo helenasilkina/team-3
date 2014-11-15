@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <script src="js/libs.js"></script>
+    <script src="js/app.js"></script>
+    <style type="text/css" media="screen">
+        body {
+            overflow: hidden;
+            background-color: #3d3d3d;
+        }
+        #editor {
+            margin: 0;
+            width: 800px;
+            height: 500px;
+        }
+
+        .fake-cursor {
+            background-color: transparent !important;
+        }
+
+        .user-0 {
+            border-left: 2px solid red;
+            background: none;
+        }
+
+        .user-1 {
+            border-left: 2px solid blue;
+            background: none;
+        }
+
+        .user-2 {
+            border-left: 2px solid orange;
+        }
+
+    </style>
+
+</head>
+<body>
+  <div id="editor-field"></div>
+
+  <script type="text/template" id="editor-template">
+    <div id="editor"></div>
+    <button onclick="testCursors();">test cursors</button>
+    <button onclick="testText();">test text</button>
+  </script>
+
+</body>
+</html>

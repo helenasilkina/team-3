@@ -8,8 +8,8 @@ $(document).ready(function () {
     link.href = location.href;
 
     if (/doc/.test(link)) {
-        var id = parseInt(link.href[link.href.length - 1], 10);
-        console.log(link);
+        var id = substring(url.lastIndexOf('/') + 1);
+        console.log(id);
         setTimeout(function () {
             sockets.get(id);
         }, 1000);
