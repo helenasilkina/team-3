@@ -1,82 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-    <title>App Frontpage</title>
+	<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <title>Document</title>
     <link rel="shortcut icon"href="//yastatic.net/lego/_/pDu9OWAQKB0s2J9IojKpiS_Eho.ico"/>
     <link rel="stylesheet" href="css/core.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/raw.css" />
-    <script src="js/libs.js"></script>
-    <script src="js/entrypage.js"></script>
 </head>
 <body>
-    <div class="main-wrap main-wrap--padding js-get-main-wrap">
-        <div class="main main--centered">
-            <div class="header">
-                <div class="logo">
-                    <div class="logo__text">
-                        <a class="logo__text__a" href="/">
-                            Яндекс
-                            <span class="logo__text__span">
-                                код
-                            </span>
-                        </a>
-                    </div>
+    <div class="main-wrap cf js-get-main-wrap">
+        <div class="panel panel--top">
+            <div class="project">
+                <div class="project__logo">
+                    <a class="logo__text__a" href="/">
+                        Яндекс.Код
+                    </a>
+                </div>
+                <span class="project__name">
+                    /&nbsp;Project
+                </span>
+            </div>
+            <div class="profile">
+                <span class="profile__name">
+                    NeXidan
+                </span>
+                <div class="profile__avatar">
                 </div>
             </div>
-            <div class="steps-wrap">
-                <div class="col w--33">
-                    <div class="panel">
-                        <div class="step">
-                            <span class="step__number">
-                                1
-                            </span>
-                        </div>
-                        <h3>
-                            <a href="editor.html">Создать проект</a>
-                        </h3>
-                        <hr class="hr">
-                        <p>
-                            бла-бла-бла
-                        </p>
-                    </div>
-                </div>
-                <div class="col w--33">
-                    <div class="panel">
-                        <div class="step">
-                            <span class="step__number">
-                                2
-                            </span>
-                        </div>
-                        <h3>
-                            Поделиться ссылкой
-                        </h3>
-                        <hr class="hr">
-                        <p>
-                            бла-бла-бла
-                        </p>
-                    </div>
-                </div>
-                <div class="col w--33">
-                    <div class="panel">
-                        <div class="step">
-                            <span class="step__number">
-                               3
-                            </span>
-                        </div>
-                        <h3>
-                            Начать работать
-                        </h3>
-                        <hr class="hr">
-                        <p>
-                            бла-бла-бла
-                        </p>
-                    </div>
+        </div>
+        <div class="main main--padding">
+            <div class="col col--left w--20">
+                <div class="folders">
                 </div>
             </div>
-            <button class="btn btn--lg btn--icon icon-plus js-get-create-doc">Создать</button>
+            <div class="col w--65">
+                <div class="content" id="editor-field"></div>
+            </div>
+        </div>
+        <div class="panel panel--bot">
         </div>
     </div>
+
+  <script src="js/libs.js"></script>
+  <script src="js/app.js"></script>
+  <script type="text/template" id="editor-template">
+    <div id="editor"></div>
+  </script>
+
 </body>
 </html>
