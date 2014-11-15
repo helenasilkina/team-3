@@ -12,14 +12,12 @@ app.MainAppView = Backbone.View.extend({
           textModel: app.textModel
         });
 
-        var isUpdateWaiting = true;
         var aceEditor = app.editorController.editor.ace;
 
         // text set
 //        isUpdateWaiting = false;
 //        app.textModel.set('text', 'text for textarea');
 //        isUpdateWaiting = true;
-
 
         // text get
 //        aceEditor.on('change', function () {
@@ -45,17 +43,22 @@ app.MainAppView = Backbone.View.extend({
             var Swarm = require('swarm');
             var Text = require('swarm/lib/Text');
             var swarmHost = new Swarm.Host(login);
+            var isUpdateWaiting = true;
 
             window.text = new Text('TextArea2');
 
             function listenText() {
+                isUpdateWaiting = false;
                 app.textModel.set('text', text.text);
+                isUpdateWaiting = true;
             }
 
             swarmHost.connect('ws://' + window.location.host.split(':')[0] + ':9999');
 
             aceEditor.on('change', function () {
-                text.set(aceEditor.getValue());
+                if (isUpdateWaiting) {
+                    text.set(aceEditor.getValue());
+                }
             });
 
             text.on('init', listenText);

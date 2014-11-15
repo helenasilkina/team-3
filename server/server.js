@@ -17,7 +17,7 @@ app.get('/doc/:id', function(req, res){
     res.sendFile(path.resolve('public/doc.html'));
 });
 
-app.get('/dist/bundle.js',
+app.get('/dist/js/bundle.js',
     browserify('./dist/js/app', {
         debug: true,
         watch: true
