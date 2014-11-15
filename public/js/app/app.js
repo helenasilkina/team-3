@@ -22,7 +22,6 @@ app.MainAppView = Backbone.View.extend({
         // text get
 //        aceEditor.on('change', function () {
 //            if (isUpdateWaiting) {
-//                console.log(aceEditor.getValue());
 //            }
 //        });
 
@@ -33,7 +32,7 @@ app.MainAppView = Backbone.View.extend({
 
         // событие по изменению положения курсора
         aceEditor.session.selection.on('changeCursor', function () {
-            console.log(app.editorController.editor.getCursor());
+            // console.log(app.editorController.editor.getCursor());
         });
 
         swarm();
@@ -64,12 +63,6 @@ app.MainAppView = Backbone.View.extend({
             text.on('init', listenText);
 
             text.on(function (spec, val, source) {
-
-                console.log('****************START EVENT********************');
-                console.log('event: ', spec.op(), val);
-                console.log('****************TEXTAREA********************');
-                console.log(text);
-                console.log(swarmHost);
                 listenText();
             });
         }

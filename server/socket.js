@@ -18,7 +18,6 @@ function run() {
 
 			if( typeof obj == 'object' ) {
 				if( obj.method === 'create' ) {
-					console.log("create");
 					database.create(obj.content, db, function(data) {
 						var obj = {
 							type: 'createOk',
@@ -26,19 +25,16 @@ function run() {
 							eventName: 'success',
 							id: data._id
 						}
-						console.log("saved", data);
 						socket.send(JSON.stringify(obj));
 					})
 				}
 				if( obj.method === 'get') {
-					console.log('get', obj);
 					database.get(obj.id, db, function(data) {
 						var object = {
 							type: 'get',
 							data: data && data.content,
 							id: obj.id
 						}
-						console.log('get', object);
 						socket.send(JSON.stringify(object));
 					})
 				}
@@ -46,7 +42,6 @@ function run() {
 		})
 
 		socket.on('close', function() {
-			console.log('Close connection');
 		})
 	})
 });

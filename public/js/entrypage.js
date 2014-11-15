@@ -9,13 +9,11 @@ $(document).ready(function () {
 
     if (/doc/.test(link)) {
         var id = substring(url.lastIndexOf('/') + 1);
-        console.log(id);
         setTimeout(function () {
             sockets.get(id);
         }, 1000);
 
         sockets.on(id, function (data) {
-            console.log(data);
             $('.editor').html(data);
         });
     }

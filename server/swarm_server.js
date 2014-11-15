@@ -23,7 +23,6 @@ function run() {
             console.warn('Can\'t start server. Error: ', err, err.stack);
             return;
         }
-        console.log('Swarm server started at port 9999');
     });
 
     // start WebSocket server
@@ -32,14 +31,8 @@ function run() {
     // accept incoming WebSockets connections
     wsServer.on('connection', function (ws) {
             var temp = new Swarm.EinarosWSStream(ws);
-            console.log('*******SWARM HOST*******');
         swarmHost.accept(temp, { delay: 50 });
-        console.log(swarmHost);
     });
-
-    wsServer.on('message', function(message) {
-        console.log(message);
-    })
 }
 
 module.exports = {

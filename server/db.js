@@ -7,7 +7,6 @@ module.exports = {
         var collection = db.collection('documents');
         collection.insert(
             {content : cnt}, function(err, result) {
-            console.log('create', result);
             callback(result[0]);
             }
         );
@@ -16,7 +15,6 @@ module.exports = {
     get : function(id, db, callback) {
         var collection = db.collection('documents');
         collection.findOne({ _id : ObjectId(id) }, function(err, result) {
-            console.log('result ',result);
             callback(result);
         });
     }
