@@ -2,7 +2,7 @@ var app = app || {};
 
 app.MainAppView = Backbone.View.extend({
     initialize: function (options) {
-            app.usersCollection = new app.UsersCollection();
+        app.usersCollection = new app.UsersCollection();
         app.cursorsCollection = new app.CursorsCollection();
         app.textModel = new app.TextModel();
         app.editor = new app.EditorView({
