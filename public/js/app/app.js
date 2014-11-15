@@ -48,6 +48,7 @@ app.MainAppView = Backbone.View.extend({
             var Text = require('swarm/lib/Text');
             var swarmHost = new Swarm.Host(login);
             var isUpdateWaiting = true;
+            jQuery('.profile__name').text(login);
 
             window.text = new Text('TextArea2');
 
