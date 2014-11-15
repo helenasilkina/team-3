@@ -6,7 +6,9 @@ var gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
     jscs = require('gulp-jscs'),
-    csscomb = require('gulp-csscomb');
+    csscomb = require('gulp-csscomb'),
+    browserify = require('browserify'),
+    transform = require('vinyl-transform');
 
 
 var path = {
@@ -53,9 +55,18 @@ gulp.task('jscs', function () {
         .pipe(jscs());
 });
 
+
+
 gulp.task('minify', function(){
+  var browserified = transform(function(filename) {
+    var b = browserify(filename);
+    return b.bundle();
+  });
+
   gulp.src(appFiles)
       .pipe(concat('app.js'))
+      .pipe(gulp.dest(path.dist.js))
+      .pipe(browserified)
       .pipe(gulp.dest(path.dist.js))
       .pipe(rename('app.min.js'))
       .pipe(uglify())

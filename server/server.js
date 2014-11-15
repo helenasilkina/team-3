@@ -17,11 +17,11 @@ app.get('/doc/:id', function(req, res){
     res.sendFile(path.resolve('public/doc.html'));
 });
 
-app.get('/dist/js/bundle.js',
-    browserify('./dist/js/app', {
-        debug: true,
-        watch: true
-    }));
+// app.get('/dist/js/bundle.js',
+//     browserify('./dist/js/app', {
+//         debug: true,
+//         watch: true
+//     }));
 
 module.exports = {
     run: function(port) {
