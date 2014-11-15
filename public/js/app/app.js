@@ -2,15 +2,36 @@ var app = app || {};
 
 app.MainAppView = Backbone.View.extend({
     initialize: function (options) {
-            app.usersCollection = new app.UsersCollection();
+        app.usersCollection = new app.UsersCollection();
         app.cursorsCollection = new app.CursorsCollection();
         app.textModel = new app.TextModel();
-        app.editor = new app.EditorView({
+        app.editorController = new app.EditorView({
           el: '#editor-field',
           usersCollection: app.usersCollection,
           cursorsCollection: app.cursorsCollection,
           textModel: app.textModel
         });
+
+        var aceEditor = app.editorController.editor.ace;
+
+        // text set
+        app.textModel.set('text', 'text for textarea');
+
+        // text get
+        aceEditor.on('change', function () {
+            console.log(aceEditor.getValue());
+        });
+
+        // cursor set
+        // app.cursorsCollection.reset(test);
+
+        // cursor get
+
+        // событие по изменению положения курсора
+        aceEditor.session.selection.on('changeCursor', function () {
+            console.log(app.editorController.editor.getCursor());
+        });
+
     }
 });
 
@@ -24,6 +45,12 @@ var testUsers =  [
     {id: '6', name: 'User 6', isOnline: false}
 ];
 
+var test = [
+    {id: 0, col: 2, row: 0, color: '#ff5500'},
+    {id: 1, col: 4, row: 1, color: '#ff0036'},
+    {id: 2, col: 1, row: 2, color: '#002aff'}
+];
+
 $(document).ready(function () {
     var App = new app.MainAppView();
     // setTimeout(testCursors, 5000);
@@ -32,11 +59,6 @@ $(document).ready(function () {
 // TESTING DATA!!!!!!!!!!!!!!!
 
 function testCursors() {
-    var test = [
-        {id: 0, col: 2, row: 0, color: '#ff5500'},
-        {id: 1, col: 4, row: 1, color: '#ff0036'},
-        {id: 2, col: 1, row: 2, color: '#002aff'}
-    ];
 
     app.cursorsCollection.reset(test);
 }
