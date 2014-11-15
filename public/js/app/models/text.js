@@ -8,6 +8,5 @@ app.TextModel = Backbone.Model.extend ({
     },
 
     initialize: function () {
-        console.log('init');
     }
 });
