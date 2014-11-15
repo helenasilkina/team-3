@@ -1025,8 +1025,9 @@ html,body {
 }
 
 .ace_content {
-    font-size: 13px;
-    line-height: 19px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+    font-size: 12px;
+    line-height: normal;
 }
 
 #editor {
