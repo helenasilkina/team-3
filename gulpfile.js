@@ -108,5 +108,5 @@ gulp.task('watch', function(){
 });
 
 gulp.task('default', function(){
-  gulp.start('minify', 'styles', 'static-copy');
+  gulp.start('jscs','hint','minify', 'styles', 'static-copy');
 });

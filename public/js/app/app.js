@@ -18,18 +18,14 @@ app.MainAppView = Backbone.View.extend({
 //        isUpdateWaiting = false;
 //        app.textModel.set('text', 'text for textarea');
 //        isUpdateWaiting = true;
-
         // text get
 //        aceEditor.on('change', function () {
 //            if (isUpdateWaiting) {
 //            }
-//        });
-
+//        });i < 6; i++
         // cursor set
         // app.cursorsCollection.reset(test);
-
         // cursor get
-
         // событие по изменению положения курсора
         aceEditor.session.selection.on('changeCursor', function () {
             // console.log(app.editorController.editor.getCursor());
@@ -40,7 +36,7 @@ app.MainAppView = Backbone.View.extend({
         function getRandomColor() {
             var letters = '0123456789ABCDEF'.split('');
             var color = '#';
-            for (var i = 0; i < 6; i++ ) {
+            for (var i = 0; i < 6; i++) {
                 color += letters[Math.floor(Math.random() * 16)];
             }
             return color;
@@ -52,7 +48,7 @@ app.MainAppView = Backbone.View.extend({
             var Text = require('swarm/lib/Text');
             var swarmHost = new Swarm.Host(login);
             var isUpdateWaiting = true;
-            
+
             window.text = new Text('TextArea2');
 
             function listenText() {
