@@ -39,7 +39,7 @@ app.EditorView = Backbone.View.extend ({
         var template = _.template($('#editor-template').html());
         this.$el.html(template);
 
-        this.editor = new Editor({
+        this.editor = new EditorManager({
             editorId: 'editor'
         });
         return this;
