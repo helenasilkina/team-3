@@ -1,33 +1,22 @@
-var site_app = site_app || {};
-
 var _ref;
 var Range  = ((_ref = ace.require) !== null ? _ref : require)('ace/range').Range;
 
 var EditorManager = function (_options) {
+    this.options = jQuery.extend(true, {
+        editorId: null
+    }, _options);
 
-    var options = {
-        editor: null
-    };
-    this.ace = ace.edit('editor');
+    this.ace = ace.edit(this.options.editorId);
     this.ace.session.setMode('ace/mode/html');
 
+    this.stylesTag = jQuery('<style></style>');
+    this.stylesTag.appendTo('body');
+
     this.otherCursors = [];
-
-    var _this = this;
-
 };
 
 EditorManager.prototype.setCursor = function (row, col) {
     this.ace.moveCursorTo(row, col);
-};
-
-EditorManager.prototype.setOtherCursor = function (range, id) {
-    this.marker = this.ace.session.addMarker(range, 'ace_active-line', 'text');
-};
-
-EditorManager.prototype.addMarker = function () {
-    var range = new Range(2, 0, 2, 1);
-    this.marker = this.ace.session.addMarker(range, 'ace_active-line user-1', 'text');
 };
 
 EditorManager.prototype.removeMarker = function () {
