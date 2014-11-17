@@ -12,66 +12,66 @@ app.MainAppView = Backbone.View.extend({
           textModel: app.textModel
         });
 
-        var aceEditor = app.editorController.editor.ace;
+        this.swarmStart();
+        this.textSyncStart();
 
-        // text set
-//        isUpdateWaiting = false;
-//        app.textModel.set('text', 'text for textarea');
-//        isUpdateWaiting = true;
-        // text get
-//        aceEditor.on('change', function () {
-//            if (isUpdateWaiting) {
-//            }
-//        });i < 6; i++
-        // cursor set
-        // app.cursorsCollection.reset(test);
-        // cursor get
+    },
+
+    getUsername: function () {
+        var name = prompt('Введите логин');
+        if (/\w/.test(name)) {
+            return name;
+        } else {
+            return getLogin();
+        }
+    },
+
+    getRandomColor: function () {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    },
+
+    swarmStart: function () {
+        var username = this.getUsername();
+        var Swarm = require('swarm');
+        var swarmHost = new Swarm.Host(username);
+        swarmHost.connect('ws://' + window.location.host.split(':')[0] + ':9999');
+        jQuery('.profile__name').text(username);
+    },
+
+    textSyncStart: function () {
+        var aceEditor = app.editorController.editor.ace;
+        var isUpdateWaiting = true;
+        var Text = require('swarm/lib/Text');
+        var syncText = new Text('TextArea2');
+
+        function updateEditorText() {
+            isUpdateWaiting = false;
+            app.textModel.set('text', syncText.text);
+            isUpdateWaiting = true;
+        }
+
         // событие по изменению положения курсора
         aceEditor.session.selection.on('changeCursor', function () {
+            // получение позиции курсора. здесь мы должны отправлять ее на сервер
             // console.log(app.editorController.editor.getCursor());
         });
 
-        swarm();
-
-        function getRandomColor() {
-            var letters = '0123456789ABCDEF'.split('');
-            var color = '#';
-            for (var i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
+        aceEditor.on('change', function () {
+            if (isUpdateWaiting) {
+                syncText.set(aceEditor.getValue());
             }
-            return color;
-        }
+        });
 
-        function swarm() {
-            var login = prompt('Введите логин');
-            var Swarm = require('swarm');
-            var Text = require('swarm/lib/Text');
-            var swarmHost = new Swarm.Host(login);
-            var isUpdateWaiting = true;
-            jQuery('.profile__name').text(login);
+        syncText.on('init', updateEditorText);
 
-            window.text = new Text('TextArea2');
-
-            function listenText() {
-                isUpdateWaiting = false;
-                app.textModel.set('text', text.text);
-                isUpdateWaiting = true;
-            }
-
-            swarmHost.connect('ws://' + window.location.host.split(':')[0] + ':9999');
-
-            aceEditor.on('change', function () {
-                if (isUpdateWaiting) {
-                    text.set(aceEditor.getValue());
-                }
-            });
-
-            text.on('init', listenText);
-
-            text.on(function (spec, val, source) {
-                listenText();
-            });
-        }
+        syncText.on(function (spec, val, source) {
+            updateEditorText();
+        });
     }
 });
 
@@ -85,24 +85,6 @@ var testUsers =  [
     {id: '6', name: 'User 6', isOnline: false}
 ];
 
-var test = [
-    {id: 0, col: 2, row: 0, color: '#ff5500'},
-    {id: 1, col: 4, row: 1, color: '#ff0036'},
-    {id: 2, col: 1, row: 2, color: '#002aff'}
-];
-
 $(document).ready(function () {
     var App = new app.MainAppView();
-    // setTimeout(testCursors, 5000);
 });
-
-// TESTING DATA!!!!!!!!!!!!!!!
-
-function testCursors() {
-
-    app.cursorsCollection.reset(test);
-}
-
-function testText() {
-    app.textModel.set('text', 'test string, not so long \ntest string 2 longer longer longer \ntest string 3 the longest string in the document!');
-}
