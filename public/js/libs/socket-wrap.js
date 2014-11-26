@@ -31,7 +31,6 @@ function SocketWrap(url, port) {
         var arr;
         if (obj.type === 'get') {
             arr = callbacks[obj.id];
-            console.log(event);
             for (var i = 0; i < arr.length; i++) {
                 arr[i](obj.data);
             }

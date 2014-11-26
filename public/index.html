@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-    <meta charset="UTF-8">
+	<meta charset="UTF-8" />
     <title>Document</title>
     <link rel="shortcut icon"href="//yastatic.net/lego/_/pDu9OWAQKB0s2J9IojKpiS_Eho.ico"/>
     <link rel="stylesheet" href="css/core.css" />
@@ -23,13 +22,23 @@
                 </span>
             </div>
             <div class="profile">
-                <span class="profile__name">
-                    NeXidan
-                </span>
-                <div class="profile__avatar">
-                </div>
+                <span class="profile__name"></span>
+                <!-- <div class="profile__avatar"></div> -->
+            </div>
+
+            <div id="editor-props">
+                <select id="theme-switcher">
+                    <option value="0" selected="selected">xCode</option>
+                    <option value="1">Twinlight</option>
+                </select>
+
+                <select id="syntax-switcher">
+                    <option value="0" selected="selected">Text</option>
+                    <option value="1">javascript</option>
+                </select>
             </div>
         </div>
+
         <div class="main main--padding">
             <div class="col col--left w--20">
                 <div class="folders">
@@ -43,11 +52,13 @@
         </div>
     </div>
 
-  <script src="js/libs.js"></script>
-  <script src="js/app.js"></script>
-  <script type="text/template" id="editor-template">
-    <div id="editor"></div>
-  </script>
+    <script src="js/libs.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- backbone templates -->
+    <script type="text/template" id="editor-template">
+        <div id="editor"></div>
+    </script>
 
 </body>
 </html>

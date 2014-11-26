@@ -12,31 +12,114 @@ app.MainAppView = Backbone.View.extend({
           textModel: app.textModel
         });
 
-        var isUpdateWaiting = true;
+        this.swarmStart();
+        this.textSyncStart();
+
+    },
+
+    getUsername: function () {
+        var name = prompt('Введите логин');
+        if (/\w/.test(name)) {
+            return name;
+        } else {
+            return getLogin();
+        }
+    },
+
+    getRandomColor: function () {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    },
+
+    swarmStart: function () {
+        var username = this.getUsername();
+        var Swarm = require('swarm');
+        var swarmHost = new Swarm.Host(username);
+        swarmHost.connect('ws://' + window.location.host.split(':')[0] + ':9999');
+        jQuery('.profile__name').text(username);
+    },
+
+    textSyncStart: function () {
         var aceEditor = app.editorController.editor.ace;
+        var isUpdateWaiting = true;
+        var Text = require('swarm/lib/Text');
+        var syncText = new Text('TextArea2');
 
-        // text set
-//        isUpdateWaiting = false;
-//        app.textModel.set('text', 'text for textarea');
-//        isUpdateWaiting = true;
+        // Создается модель для коллекции курсоров
+        var username = this.getUsername();
+        var randomColor = this.getRandomColor();
+        var Model = require('swarm/lib/Model');
+        var OtherCursor = new Model(username);
 
-        // text get
-//        aceEditor.on('change', function () {
-//            if (isUpdateWaiting) {
-//                console.log(aceEditor.getValue());
-//            }
-//        });
+        var Vector = require('swarm/lib/Vector');
+        var cursorsCollection = new Vector('list');
 
-        // cursor set
-        // app.cursorsCollection.reset(test);
+        function updateEditorText() {
+            isUpdateWaiting = false;
+            app.textModel.set('text', syncText.text);
+            isUpdateWaiting = true;
+        }
 
-        // cursor get
+        function updateCursors() {
+            var objects = cursorsCollection.objects;
+            for (var i = 0; i < objects.length; i++) {
+                if (!objects[i].hasOwnProperty('online') || objects[i].online === false) {
+                    cursorsCollection.removeObject(i);
+                    i = i - 1;
+                }
+            }
+        }
+
+        function setProperty(username, property) {
+            var objects = cursorsCollection.objects;
+            for (var i = 0; i < objects.length; i++) {
+                if (objects[i]._id == username) {
+                    objects[i].set(property);
+                }
+            }
+        }
 
         // событие по изменению положения курсора
         aceEditor.session.selection.on('changeCursor', function () {
-            console.log(app.editorController.editor.getCursor());
+            if (isUpdateWaiting) {
+                OtherCursor.set(app.editorController.editor.getCursor());
+                setProperty(username, {online: true});
+                setProperty(username, app.editorController.editor.getCursor());
+                updateCursors();
+            }
         });
 
+        aceEditor.on('change', function () {
+            if (isUpdateWaiting) {
+                syncText.set(aceEditor.getValue());
+            }
+        });
+
+        aceEditor.on('blur', function () {
+            setProperty(username, {online: false});
+            updateCursors();
+            console.log(cursorsCollection.objects);
+        });
+
+        syncText.on('init', updateEditorText);
+
+        syncText.on(function (spec, val, source) {
+            updateEditorText();
+        });
+
+        OtherCursor.on('init', function () {
+            OtherCursor.set({color: randomColor, online: true});
+            cursorsCollection.addObject(OtherCursor);
+            app.cursorsCollection.models = cursorsCollection.objects;
+        });
+
+        OtherCursor.on(function (spec, val, source) {
+
+        });
     }
 });
 
@@ -50,24 +133,6 @@ var testUsers =  [
     {id: '6', name: 'User 6', isOnline: false}
 ];
 
-var test = [
-    {id: 0, col: 2, row: 0, color: '#ff5500'},
-    {id: 1, col: 4, row: 1, color: '#ff0036'},
-    {id: 2, col: 1, row: 2, color: '#002aff'}
-];
-
 $(document).ready(function () {
     var App = new app.MainAppView();
-    // setTimeout(testCursors, 5000);
 });
-
-// TESTING DATA!!!!!!!!!!!!!!!
-
-function testCursors() {
-
-    app.cursorsCollection.reset(test);
-}
-
-function testText() {
-    app.textModel.set('text', 'test string, not so long \ntest string 2 longer longer longer \ntest string 3 the longest string in the document!');
-}
