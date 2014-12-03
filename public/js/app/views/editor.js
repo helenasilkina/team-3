@@ -12,16 +12,28 @@ app.EditorView = Backbone.View.extend ({
         this.usersCollection = this.options.usersCollection;
         this.cursorsCollection = this.options.cursorsCollection;
         this.textModel = this.options.textModel;
+        this.userModel = this.options.userModel;
 
         this.themes = ['xcode', 'twilight'];
         this.syntax = ['text', 'javascript'];
 
         // event listeners
-        this.cursorsCollection.on('reset', this.updateCursors, this);
+        this.cursorsCollection.on('change', this.updateCursors, this);
         this.textModel.on('change', this.updateText, this);
+        this.usersCollection.on('add', this.addUser, this);
 
         var _this = this;
         this.render();
+    },
+
+    updateUser: function () {
+        this.updateCursors();
+    },
+
+    addUser: function () {
+        var name = this.userModel.get('name');
+        var color = this.userModel.get('color');
+        $('#users-field').append('<div class="user"><span class="user__name ace-color-' + color + '">' + name + '</span></div>');
     },
 
     updateText: function () {
@@ -32,16 +44,7 @@ app.EditorView = Backbone.View.extend ({
     },
 
     updateCursors: function () {
-        var data = JSON.parse(JSON.stringify(this.cursorsCollection.models));
-        this.editor.updateOtherCursors(data);
-    },
-
-    onlineToggle: function (isOnline) { // 0
-
-    },
-
-    test: function () {
-        alert('test!');
+        this.editor.updateOtherCursors(this.cursorsCollection.models);
     },
 
     setTheme: function (index) {
@@ -61,7 +64,6 @@ app.EditorView = Backbone.View.extend ({
             editorId: 'editor'
         });
 
-        // сброс дефолтного пути до конфига
         ace.config.set('basePath', 'js/ace-additional/');
         this.editor.ace.getSession().setUseWorker(false);
 
@@ -69,7 +71,9 @@ app.EditorView = Backbone.View.extend ({
         var syntaxSwitcher = $('#syntax-switcher');
 
         themeSwitcher.on('change', function () {
-            _this.setTheme(themeSwitcher.val());
+            var theme = themeSwitcher.val();
+            _this.setTheme(theme);
+            $('body').attr('class', '').addClass('ace-' + _this.themes[theme]);
         });
         syntaxSwitcher.on('change', function () {
             _this.setSyntax(syntaxSwitcher.val());

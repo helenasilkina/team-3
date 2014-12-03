@@ -5,11 +5,13 @@ app.MainAppView = Backbone.View.extend({
         app.usersCollection = new app.UsersCollection();
         app.cursorsCollection = new app.CursorsCollection();
         app.textModel = new app.TextModel();
+        app.userModel = new app.UserModel();
         app.editorController = new app.EditorView({
-          el: '#editor-field',
-          usersCollection: app.usersCollection,
-          cursorsCollection: app.cursorsCollection,
-          textModel: app.textModel
+            el: '#editor-field',
+            usersCollection:  app.usersCollection,
+            cursorsCollection: app.cursorsCollection,
+            textModel: app.textModel,
+            userModel: app.userModel
         });
 
         this.swarmStart();
@@ -27,12 +29,8 @@ app.MainAppView = Backbone.View.extend({
     },
 
     getRandomColor: function () {
-        var letters = '0123456789ABCDEF'.split('');
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
+        var colorArray = ['300', '030', '003', '600', '060', '006', '888', '900', '090', '009'];
+        return colorArray[Math.floor(Math.random() * 10)];
     },
 
     swarmStart: function () {
@@ -40,7 +38,8 @@ app.MainAppView = Backbone.View.extend({
         var Swarm = require('swarm');
         var swarmHost = new Swarm.Host(username);
         swarmHost.connect('ws://' + window.location.host.split(':')[0] + ':9999');
-        jQuery('.profile__name').text(username);
+        $('.profile__name').text(username);
+
     },
 
     textSyncStart: function () {
@@ -49,30 +48,12 @@ app.MainAppView = Backbone.View.extend({
         var Text = require('swarm/lib/Text');
         var syncText = new Text('TextArea2');
 
-        // Создается модель для коллекции курсоров
-        var username = this.getUsername();
+        var username = $('.profile__name').text();
         var randomColor = this.getRandomColor();
-        var Model = require('swarm/lib/Model');
-        var OtherCursor = new Model(username);
-
-        var Vector = require('swarm/lib/Vector');
-        var cursorsCollection = new Vector('list');
-
-        function updateEditorText() {
-            isUpdateWaiting = false;
-            app.textModel.set('text', syncText.text);
-            isUpdateWaiting = true;
-        }
-
-        function updateCursors() {
-            var objects = cursorsCollection.objects;
-            for (var i = 0; i < objects.length; i++) {
-                if (!objects[i].hasOwnProperty('online') || objects[i].online === false) {
-                    cursorsCollection.removeObject(i);
-                    i = i - 1;
-                }
-            }
-        }
+        var swarmModel = require('swarm/lib/Model');
+        var userInfo = new swarmModel(username);
+        var swarmCollection = require('swarm/lib/Vector');
+        var cursorsCollection = new swarmCollection('list');
 
         function setProperty(username, property) {
             var objects = cursorsCollection.objects;
@@ -83,15 +64,11 @@ app.MainAppView = Backbone.View.extend({
             }
         }
 
-        // событие по изменению положения курсора
-        aceEditor.session.selection.on('changeCursor', function () {
-            if (isUpdateWaiting) {
-                OtherCursor.set(app.editorController.editor.getCursor());
-                setProperty(username, {online: true});
-                setProperty(username, app.editorController.editor.getCursor());
-                updateCursors();
-            }
-        });
+        function updateEditorText() {
+            isUpdateWaiting = false;
+            app.textModel.set('text', syncText.text);
+            isUpdateWaiting = true;
+        }
 
         aceEditor.on('change', function () {
             if (isUpdateWaiting) {
@@ -100,9 +77,14 @@ app.MainAppView = Backbone.View.extend({
         });
 
         aceEditor.on('blur', function () {
-            setProperty(username, {online: false});
-            updateCursors();
-            console.log(cursorsCollection.objects);
+            userInfo.set({online: false});
+        });
+
+        // событие по изменению положения курсора
+        aceEditor.session.selection.on('changeCursor', function () {
+            app.userModel.set(app.editorController.editor.getCursor());
+            setProperty(username, {online: true});
+            setProperty(username, app.editorController.editor.getCursor());
         });
 
         syncText.on('init', updateEditorText);
@@ -111,27 +93,30 @@ app.MainAppView = Backbone.View.extend({
             updateEditorText();
         });
 
-        OtherCursor.on('init', function () {
-            OtherCursor.set({color: randomColor, online: true});
-            cursorsCollection.addObject(OtherCursor);
-            app.cursorsCollection.models = cursorsCollection.objects;
+        userInfo.on('init', function () {
+            userInfo.set({color: randomColor, online: true});
+            var isUserExist = false;
+
+            for (var i = 0; i < cursorsCollection.objects.length; i++) {
+                if (cursorsCollection.objects[i]._id == username) {
+                    isUserExist = true;
+                }
+            }
+
+            if (isUserExist) {
+                setProperty(username, {online: true});
+            } else {
+                cursorsCollection.addObject(userInfo);
+            }
+            app.usersCollection.models = cursorsCollection.objects;
         });
 
-        OtherCursor.on(function (spec, val, source) {
-
+        cursorsCollection.on(function (spec, val, source) {
+            app.cursorsCollection.models = [];
+            app.cursorsCollection.models = cursorsCollection.objects;
         });
     }
 });
-
-var testUsers =  [
-    {id: '0', name: 'User 0', isOnline: false},
-    {id: '1', name: 'User 1', isOnline: false},
-    {id: '2', name: 'User 2', isOnline: true},
-    {id: '3', name: 'User 3', isOnline: false},
-    {id: '4', name: 'User 4', isOnline: false},
-    {id: '5', name: 'User 5', isOnline: true},
-    {id: '6', name: 'User 6', isOnline: false}
-];
 
 $(document).ready(function () {
     var App = new app.MainAppView();

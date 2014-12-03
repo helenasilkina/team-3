@@ -13,6 +13,7 @@ var EditorManager = function (_options) {
     this.stylesTag.appendTo('body');
 
     this.otherCursors = [];
+    this.user = $('.profile__name').text();
 };
 
 EditorManager.prototype.setCursor = function (row, col) {
@@ -21,6 +22,10 @@ EditorManager.prototype.setCursor = function (row, col) {
 
 EditorManager.prototype.removeMarker = function () {
     this.ace.session.removeMarker(this.marker);
+};
+
+EditorManager.prototype.addMarker = function (range, classtext, text) {
+    this.ace.session.addMarker(range, classtext, text);
 };
 
 EditorManager.prototype.getCursor = function () {
@@ -44,8 +49,10 @@ EditorManager.prototype.updateOtherCursors = function (data) {
     this.otherCursors = [];
 
     for (var n = 0; n < data.length; n++) {
-        var range = new Range(data[n].row, data[n].col,
-            data[n].row, data[n].col + 1);
-        this.otherCursors.push(this.ace.session.addMarker(range, 'ace_active-line fake-cursor user-' + data[n].id, 'text'));
+        if (data[n].online === true && data[n]._id != this.user) {
+            var range = new Range(data[n].row, data[n].column, data[n].row, data[n].column + 1);
+            var textClass = 'ace_active-line user-' + data[n]._id + ' ace-color-' + data[n].color;
+            this.otherCursors.push(this.ace.session.addMarker(range, textClass, 'text'));
+        }
     }
 };
