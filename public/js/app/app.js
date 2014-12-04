@@ -16,7 +16,6 @@ app.MainAppView = Backbone.View.extend({
 
         this.swarmStart();
         this.textSyncStart();
-
     },
 
     getUsername: function () {
@@ -29,7 +28,7 @@ app.MainAppView = Backbone.View.extend({
     },
 
     getRandomColor: function () {
-        var colorArray = ['300', '030', '003', '600', '060', '006', '888', '900', '090', '009'];
+        var colorArray = ['da0', 'ad0', '0ad', 'd00', '0d0', '00d', '888', '900', '090', '009'];
         return colorArray[Math.floor(Math.random() * 10)];
     },
 
@@ -55,19 +54,21 @@ app.MainAppView = Backbone.View.extend({
         var swarmCollection = require('swarm/lib/Vector');
         var cursorsCollection = new swarmCollection('list');
 
-        function setProperty(username, property) {
-            var objects = cursorsCollection.objects;
-            for (var i = 0; i < objects.length; i++) {
-                if (objects[i]._id == username) {
-                    objects[i].set(property);
-                }
-            }
-        }
-
         function updateEditorText() {
             isUpdateWaiting = false;
             app.textModel.set('text', syncText.text);
             isUpdateWaiting = true;
+        }
+
+        function updateCursorCollection() {
+            setInterval(function () {
+                app.cursorsCollection.reset();
+                for (var i = 0; i < cursorsCollection.objects.length; i++) {
+                    if (cursorsCollection.objects[i]._id !== username) {
+                        app.cursorsCollection.add(cursorsCollection.objects[i]);
+                    }
+                }
+            }, 1000);
         }
 
         aceEditor.on('change', function () {
@@ -76,15 +77,12 @@ app.MainAppView = Backbone.View.extend({
             }
         });
 
-        aceEditor.on('blur', function () {
-            userInfo.set({online: false});
-        });
-
-        // событие по изменению положения курсора
         aceEditor.session.selection.on('changeCursor', function () {
-            app.userModel.set(app.editorController.editor.getCursor());
-            setProperty(username, {online: true});
-            setProperty(username, app.editorController.editor.getCursor());
+            for (var i = 0; i < cursorsCollection.objects.length; i++) {
+                if (cursorsCollection.objects[i]._id == username) {
+                    cursorsCollection.objects[i].set(app.editorController.editor.getCursor());
+                }
+            }
         });
 
         syncText.on('init', updateEditorText);
@@ -94,26 +92,25 @@ app.MainAppView = Backbone.View.extend({
         });
 
         userInfo.on('init', function () {
-            userInfo.set({color: randomColor, online: true});
-            var isUserExist = false;
-
-            for (var i = 0; i < cursorsCollection.objects.length; i++) {
-                if (cursorsCollection.objects[i]._id == username) {
-                    isUserExist = true;
+            setTimeout(function () {
+                var isUserExist = -1;
+                for (var i = 0; i < cursorsCollection.objects.length; i++) {
+                    if (cursorsCollection.objects[i]._id !== username) {
+                        app.usersCollection.add(cursorsCollection.objects[i]);
+                        app.cursorsCollection.add(cursorsCollection.objects[i]);
+                    } else {
+                        isUserExist = i;
+                    }
                 }
-            }
-
-            if (isUserExist) {
-                setProperty(username, {online: true});
-            } else {
-                cursorsCollection.addObject(userInfo);
-            }
-            app.usersCollection.models = cursorsCollection.objects;
-        });
-
-        cursorsCollection.on(function (spec, val, source) {
-            app.cursorsCollection.models = [];
-            app.cursorsCollection.models = cursorsCollection.objects;
+                if (isUserExist > -1) {
+                    cursorsCollection.objects[isUserExist].set(app.editorController.editor.getCursor());
+                } else {
+                    userInfo.set({color: randomColor});
+                    userInfo.set(app.editorController.editor.getCursor());
+                    cursorsCollection.addObject(userInfo);
+                }
+                updateCursorCollection();
+            }, 1000);
         });
     }
 });

@@ -18,7 +18,7 @@ app.EditorView = Backbone.View.extend ({
         this.syntax = ['text', 'javascript'];
 
         // event listeners
-        this.cursorsCollection.on('change', this.updateCursors, this);
+        this.cursorsCollection.on('add', this.updateCursors, this);
         this.textModel.on('change', this.updateText, this);
         this.usersCollection.on('add', this.addUser, this);
 
@@ -31,9 +31,13 @@ app.EditorView = Backbone.View.extend ({
     },
 
     addUser: function () {
-        var name = this.userModel.get('name');
-        var color = this.userModel.get('color');
-        $('#users-field').append('<div class="user"><span class="user__name ace-color-' + color + '">' + name + '</span></div>');
+        var users = '';
+        var userModels = this.usersCollection.models;
+        for (var i = 0; i < userModels.length; i++) {
+            users += '<div class="user"><span class="user__name ace-color-';
+            users += userModels[i].get('color') + '">' + userModels[i].get('_id') + '</span></div>';
+        }
+        $('#users-field').append(users);
     },
 
     updateText: function () {

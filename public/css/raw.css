@@ -1,3 +1,30 @@
+html, body, div, span, applet, object, iframe, table, caption,
+tbody, tfoot, thead, tr, th, td, del, dfn, em, font, img, ins,
+kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, pre,
+a, abbr, acronym, address, big, cite, code, dl, dt, dd, form, label, legend {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+input {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+input::-moz-focus-inner,
+button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+    margin: 0;
+}
+
+
+body {
+    color: #000;
+    font-family: Tahoma, Arial, sans-serif;
+    line-height: 1.2;
+}
+
 html,
 body {
     margin: 0;
@@ -302,21 +329,10 @@ summary {
     border: 1px solid #d1d1d1;
 }
 
-.user {
-}
-
 .user__name {
+    border-left: 2px solid;
+    padding-left: 8px;
     font-size: 14px;
-}
-
-.user__color {
-    position: absolute;
-    height: 8px;
-    width: 8px;
-    border-radius: 50%;
-    background-color: red;
-    margin-left: 5px;
-    margin-top: 5px;
 }
 
 .chat {
@@ -378,24 +394,6 @@ summary {
     border-right: 1px solid #d1d1d1;
 }
 
-.fake-cursor {
-    background-color: transparent !important;
-}
-
-.user-0 {
-    border-left: 2px solid red;
-    background: none;
-}
-
-.user-1 {
-    border-left: 2px solid blue;
-    background: none;
-}
-
-.user-2 {
-    border-left: 2px solid orange;
-}
-
 .button {
     position: absolute;
     bottom: 5px;
@@ -411,52 +409,52 @@ summary {
   margin-left: 40px;
 }
 
-.ace-color-300 {
-    color: #300;
-    background-color: #300;
+.ace_cursor.ace-color-da0 {
+    color: #da0;
+    border-color: #da0;
 }
 
-.ace-color-030 {
-    color: #030;
-    background-color: #030;
+.ace_cursor.ace-color-ad0 {
+    color: #ad0;
+    border-color: #ad0;
 }
 
-.ace-color-003 {
-    color: #003;
-    background-color: #003;
+.ace_cursor.ace-color-0ad {
+    color: #0ad;
+    border-color: #0ad;
 }
 
-.ace-color-600 {
-    color: #600;
-    background-color: #600;
+.ace_cursor.ace-color-900 {
+    color: #90d;
+    border-color: #90d;
 }
 
-.ace-color-060 {
-    color: #060;
-    background-color: #060;
-}
-
-.ace-color-006 {
-    color: #006;
-    background-color: #006;
-}
-
-.ace-color-888 {
-    color: #888;
-    background-color: #888;
-}
-
-.ace-color-900 {
-    color: #900;
-    background-color: #900;
-}
-
-.ace-color-090 {
+.ace_cursor.ace-color-090 {
     color: #090;
-    background-color: #090;
+    border-color: #090;
 }
 
-.ace-color-009 {
+.ace_cursor.ace-color-009 {
     color: #009;
-    background-color: #009;
+    border-color: #009;
+}
+
+.ace_cursor.ace-color-888 {
+    color: #888;
+    border-color: #888;
+}
+
+.ace_cursor.ace-color-d00 {
+    color: #d00;
+    border-color: #d00;
+}
+
+.ace_cursor.ace-color-0d0 {
+    color: #0d0;
+    border-color: #0d0;
+}
+
+.ace_cursor.ace-color-00d {
+    color: #00d;
+    border-color: #00d;
 }

@@ -49,10 +49,8 @@ EditorManager.prototype.updateOtherCursors = function (data) {
     this.otherCursors = [];
 
     for (var n = 0; n < data.length; n++) {
-        if (data[n].online === true && data[n]._id != this.user) {
-            var range = new Range(data[n].row, data[n].column, data[n].row, data[n].column + 1);
-            var textClass = 'ace_active-line user-' + data[n]._id + ' ace-color-' + data[n].color;
-            this.otherCursors.push(this.ace.session.addMarker(range, textClass, 'text'));
-        }
+        var range = new Range(data[n].get('row'), data[n].get('column'), data[n].get('row'), data[n].get('column') + 1);
+        var textClass = 'ace_cursor ace-color-' + data[n].get('color');
+        this.otherCursors.push(this.ace.session.addMarker(range, textClass, 'text'));
     }
 };

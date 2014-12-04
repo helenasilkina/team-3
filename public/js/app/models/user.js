@@ -6,7 +6,7 @@ app.UserModel = Backbone.Model.extend ({
             id: null,
             name: 'Default name',
             isOnline: false,
-            color: '#000'
+            color: '888'
         };
     },
     initialize: function () {
