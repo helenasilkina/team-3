@@ -26,10 +26,6 @@ app.EditorView = Backbone.View.extend ({
         this.render();
     },
 
-    updateUser: function () {
-        this.updateCursors();
-    },
-
     addUser: function () {
         var users = '';
         var userModels = this.usersCollection.models;

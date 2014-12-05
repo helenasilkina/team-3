@@ -3,10 +3,10 @@ var app = app || {};
 app.CursorModel = Backbone.Model.extend ({
     defaults: function () {
         return {
-            id: null,
+            _id: null,
             row: null,
-            col: null,
-            color: '#000'
+            column: null,
+            color: '888'
         };
     },
 

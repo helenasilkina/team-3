@@ -10,12 +10,11 @@ app.UsersView = Backbone.View.extend ({
     },
 
     initialize: function (_options) {
-        // this.options = _.extend ({}, _options, options);
         this.render();
     },
 
     render: function () {
-        var template = _.template($('#user-template').html(), {items: this.collection.models});
+        // var template = _.template($('#user-template').html(), {items: this.collection.models});
         // this.$el.html(template);
         return this;
     }

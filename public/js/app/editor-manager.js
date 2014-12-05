@@ -11,9 +11,7 @@ var EditorManager = function (_options) {
 
     this.stylesTag = jQuery('<style></style>');
     this.stylesTag.appendTo('body');
-
     this.otherCursors = [];
-    this.user = $('.profile__name').text();
 };
 
 EditorManager.prototype.setCursor = function (row, col) {
